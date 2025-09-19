@@ -1,0 +1,150 @@
+---
+layout: null
+---
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{ page.title | default: "me llamo llama" }}</title>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+
+    body{
+      font-family: "TTLakesNeueTrialCompressedBold", Arial, sans-serif;
+      background-image:url('https://mellamollamacurso.github.io/lengua/inicial/a00.png');
+      background-repeat:repeat-x; background-position:0 0; background-size:auto;
+      background-color:#f7cb44; color:#111; overflow-x:auto; min-height:100%;
+      padding-top:70px; /* espaço para a barra fixa */
+    }
+
+    /* Barra preta fixa */
+    .top-bar{ position:fixed; inset:0 0 auto 0; height:70px; background:#0b0b0b; z-index:9999; }
+    .logo{ position:fixed; top:10px; left:16px; width:110px; z-index:10000; }
+    .menu-slot{ position:fixed; top:6px; right:90px; height:58px; z-index:9999; display:flex; align-items:center;
+                overflow-x:auto; -webkit-overflow-scrolling:touch; max-width:calc(100vw - 230px); }
+    .account{ position:fixed; top:6px; right:16px; height:58px; z-index:10001; display:flex; flex-direction:column; align-items:center; gap:4px; }
+    .account .avatar{ width:38px; height:38px; border:3px solid #fff; border-radius:50%; background:transparent; }
+    .account .acc-label{ font-family:"TTLakesNeueTrialLight","TTLakesNeueTrialCompressedBold", Arial, sans-serif; color:#fff; font-size:10pt; line-height:1; text-transform:lowercase; }
+
+    /* Conteúdo principal */
+    main.site-main{ min-height:60vh; padding:20px 24px; }
+
+    /* Rodapé (não fixo) */
+    .footer-strip{ position:relative; left:0; right:0; height:140px; background:#0b0b0b; z-index:200;
+                   display:flex; align-items:center; gap:24px; padding:0 28px; margin-top:48px; }
+    .footer-strip img.avatar{ width:120px; height:auto; flex:0 0 auto; }
+    .footer-texts{ color:#fff; font-family:"TTLakesNeueTrialLight","TTLakesNeueTrialCompressedBold", Arial, sans-serif; }
+    .footer-line1{ font-size:15pt; margin-bottom:2px; }
+    .footer-sub{ font-size:7pt; margin-bottom:8px; opacity:0.95; }
+    .footer-line2{ display:flex; align-items:baseline; gap:8px; }
+    .course-name{ font-size:15pt; }
+    .version-badge{ font-size:7pt; color:#fff; opacity:0.95; }
+    .footer-legal{ font-size:7pt; opacity:0.95; margin-top:3px; }
+    #llama-stats{ position:absolute; right:24px; bottom:18px; display:flex; align-items:center;
+                  font-family:"TTLakesNeueTrialLight","TTLakesNeueTrialCompressedBold", Arial, sans-serif;
+                  font-size:12px; line-height:1; color:#fff; letter-spacing:.02em; z-index:2; }
+    #llama-stats .val{ min-width:18px; display:inline-block; text-align:right; font-variant-numeric: tabular-nums; }
+
+    /* Scrollbar (wide, trilho preto, polegar/setas #d799c4) */
+    ::-webkit-scrollbar       { width:18px; height:18px; }
+    ::-webkit-scrollbar-track { background:#000000; }
+    ::-webkit-scrollbar-thumb {
+      background:#d799c4; border:3px solid #000000; border-radius:12px;
+    }
+    ::-webkit-scrollbar-button { background:#d799c4; height:18px; width:18px; }
+    * { scrollbar-width: auto; scrollbar-color: #d799c4 #000000; }
+
+    /* ===== Menu (como no seu) ===== */
+    :root{
+      --nav-bg:transparent; --nav-fg:#ffffff; --nav-width:auto; --nav-item-h:35px;
+      --menu-font-family:"TTLakesNeueTrialLight","TTLakesNeueTrialCompressedBold", Arial, sans-serif;
+      --menu-font-weight:400; --menu-font-style:normal; --menu-font-size:14px;
+      --hover-fill:#f7cb44; --hover-fg:#000000; --hover-fw:400; --hover-fs:normal; --hover-radius:4px;
+      --underline-color:#d799c4; --underline-height:5px;
+      --active-bg:rgba(215,153,196,0.25); --active-border-w:0px; --active-border-c:#ffffff; --active-fg:#ffffff; --active-fw:700; --active-fs:normal;
+      --nav-gap:6px; --nav-border-w:0px; --nav-border-c:#000000;
+      --popover-bg:#d99cbd; --popover-fg:#000000;
+      --dropdown-font-family:"TTLakesNeueTrialLight","TTLakesNeueTrialCompressedBold", Arial, sans-serif; --dropdown-font-weight:400; --dropdown-font-style:normal;
+      --popover-border-w:3px; --popover-border-c:#000000;
+      --popover-sep-w:1px; --popover-sep-c:#7f5773;
+      --popover-hover-bg:#f7cb44;
+      --popover-shadow-rgb:0,0,0; --popover-shadow-a:1;
+      --shadow-x:0px; --shadow-y:20px; --shadow-blur:0px; --shadow-spread:0px;
+      --radius:12px;
+      --shadow: var(--shadow-x) var(--shadow-y) var(--hover-shadow-spread,0px) rgba(var(--popover-shadow-rgb), var(--popover-shadow-a));
+    }
+    nav.navbar{ position:relative; background:var(--nav-bg); color:var(--nav-fg); padding:0 8px; border-radius:0; border:var(--nav-border-w) solid var(--nav-border-c); width:var(--nav-width); }
+    .nav-list{ display:flex; flex-wrap:nowrap; gap:var(--nav-gap); margin:0; padding:0; list-style:none; position:relative; align-items:center; min-width:max-content; }
+    .nav-item{ position:relative; min-height:var(--nav-item-h); display:flex; align-items:center; border-radius:var(--hover-radius); border:var(--active-border-w) solid transparent }
+    .nav-link{ display:flex; align-items:center; gap:8px; color:var(--nav-fg); text-decoration:none; padding:10px 10px; line-height:1; font-family:var(--menu-font-family); font-weight:var(--menu-font-weight); font-style:var(--menu-font-style); font-size:var(--menu-font-size) }
+    .nav-item:hover,.nav-item:focus-within{background:var(--hover-fill)} .nav-item:hover .nav-link{color:var(--hover-fg);font-weight:var(--hover-fw);font-style:var(--hover-fs)}
+    .nav-item.active{background:var(--active-bg);border-color:var(--active-border-c);border-width:var(--active-border-w)}
+    .nav-item.active .nav-link{color:var(--active-fg);font-weight:var(--active-fw);font-style:var(--active-fs)}
+    .nav-underline{ position:absolute; left:8px; bottom:-2px; height:var(--underline-height); width:0; background:var(--underline-color); border-radius:2px; transition:left .15s,width .15s }
+    .has-dropdown{position:relative}.has-dropdown>.nav-link .caret{width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:6px solid currentColor;margin-left:6px;transition:transform .2s}
+    .has-dropdown.open>.nav-link .caret{transform:rotate(180deg)}
+    .popover{ position:absolute; top:100%; left:50%; transform:translateX(-50%); margin-top:12px; background:var(--popover-bg); color:var(--popover-fg); border-radius:12px; min-width:220px; max-width:320px; padding:8px 0; border:3px solid #000; display:none; z-index:10; }
+    .has-dropdown.open .popover{display:block}
+    .popover::before{ content:""; position:absolute; top:-8px; left:50%; transform:translateX(-50%); border-left:8px solid transparent; border-right:8px solid transparent; border-bottom:8px solid var(--popover-bg); }
+    .popover ul{margin:0;padding:0;list-style:none}.popover li+li{border-top:1px solid #7f5773}.popover a{display:block;padding:10px 14px;text-decoration:none;color:var(--popover-fg);font-size:var(--menu-font-size)}
+    .popover a:hover{background:#f7cb44}
+
+    @media (max-width:820px){
+      .menu-slot{ right:78px; max-width:calc(100vw - 200px); }
+    }
+  </style>
+</head>
+<body>
+  {% include cabeza.html %}
+
+  <main class="site-main">
+    {{ content }}
+  </main>
+
+  {% include pie.html %}
+
+  <script>
+  /* underline do menu */
+  const nav=document.getElementById('navbar'),ul=document.getElementById('navList'),underline=document.getElementById('navUnderline');
+  function placeUnderlineTo(li,instant=false){const c=nav.getBoundingClientRect(),r=li.getBoundingClientRect(),left=r.left-c.left,width=r.width;if(instant){underline.style.transition='none';underline.style.left=left+'px';underline.style.width=width+'px';void underline.offsetWidth;underline.style.transition='left .15s,width .15s';return}const a=ul.querySelector('.nav-item.active')||li,fr=a.getBoundingClientRect(),fl=fr.left-c.left,frt=fl+fr.width,tl=left,tr=left+width;underline.style.transition='left .15s,width .15s';if(tl>fl){underline.style.left=fl+'px';underline.style.width=(tr-fl)+'px';setTimeout(()=>{underline.style.left=tl+'px';underline.style.width=width+'px'},170)}else{underline.style.left=tl+'px';underline.style.width=(frt-tl)+'px';setTimeout(()=>{underline.style.width=width+'px'},170)}}
+  function closeAll(){ul.querySelectorAll('.has-dropdown.open').forEach(li=>li.classList.remove('open'))}
+  ul.addEventListener('click',e=>{const l=e.target.closest('.nav-link');if(!l)return;e.preventDefault();const li=l.closest('.nav-item');if(li.classList.contains('has-dropdown')){const open=li.classList.toggle('open');ul.querySelectorAll('.has-dropdown').forEach(o=>{if(o!==li)o.classList.remove('open')});ul.querySelectorAll('.nav-item').forEach(it=>it.classList.toggle('active',it===li));placeUnderlineTo(li);return}else{closeAll()}ul.querySelectorAll('.nav-item').forEach(it=>it.classList.toggle('active',it===li));placeUnderlineTo(li)});
+  document.addEventListener('click',e=>{if(!nav.contains(e.target)) closeAll()});document.addEventListener('keydown',e=>{if(e.key==='Escape') closeAll()});
+  window.addEventListener('load',()=>{placeUnderlineTo(ul.querySelector('.nav-item.active')||ul.querySelector('.nav-item'),true)});window.addEventListener('resize',()=>{placeUnderlineTo(ul.querySelector('.nav-item.active')||ul.querySelector('.nav-item'),true)});
+
+  /* Llama stats via CountAPI (isolado) */
+  (function(){
+    const elTotal  = document.getElementById('stat-total');
+    const elOnline = document.getElementById('stat-online');
+    if(!elTotal || !elOnline) return;
+    const NS = 'mellamollamacurso_github_io_portal';
+    const fmt = n => (n==null || isNaN(n)) ? '—' : new Intl.NumberFormat('es-ES').format(n);
+    async function req(url, opts={}){
+      const ctrl = new AbortController(); const t=setTimeout(()=>ctrl.abort(), 4000);
+      try{ const r = await fetch(url, Object.assign({cache:'no-store'}, opts, {signal:ctrl.signal}));
+           if(!r.ok) throw 0; return await r.json();
+      } catch(e){ throw e; } finally { clearTimeout(t); }
+    }
+    async function init(){
+      if(!navigator.onLine){ elTotal.textContent = elOnline.textContent = '—'; return; }
+      try{ await req(`https://api.countapi.xyz/create/${NS}/online?value=0`); }catch(e){}
+      try{ const total = await req(`https://api.countapi.xyz/hit/${NS}/visits`);
+            elTotal.textContent = fmt(total.value||0); }catch(e){ elTotal.textContent='—'; }
+      try{ await req(`https://api.countapi.xyz/update/${NS}/online?amount=1`);
+            const online = await req(`https://api.countapi.xyz/get/${NS}/online`);
+            elOnline.textContent = fmt(online.value||0); }catch(e){ elOnline.textContent='—'; }
+      setInterval(async ()=>{ if(!navigator.onLine) return;
+        try{ const online = await req(`https://api.countapi.xyz/get/${NS}/online`);
+              elOnline.textContent = fmt(online.value||0); }catch(e){}
+      }, 15000);
+    }
+    window.addEventListener('beforeunload', ()=>{ try{ navigator.sendBeacon(`https://api.countapi.xyz/update/${NS}/online?amount=-1`); }catch(e){} });
+    window.addEventListener('online', init);
+    window.addEventListener('load', init);
+  })();
+  </script>
+</body>
+</html>
