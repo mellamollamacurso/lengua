@@ -1,32 +1,28 @@
-// partes/pie.js — lógica do pie (versão + contadores)
+// partes/pie.js — versão + contadores (compatível com GitHub Pages em subpasta)
 (function(){
-  // ===== versão automática =====
+  // Detecta base do projeto (ex.: '/lengua' em mellamollamacurso.github.io/lengua/...)
+  const parts = location.pathname.split('/').filter(Boolean);
+  const BASE = parts.length ? '/' + parts[0] : ''; // '/lengua' ou ''
+
+  // ===== versão automática (usa /api/version se estiver no Cloudflare Pages; em GH Pages cai no fallback) =====
   async function setVersionBadge(){
     const el = document.querySelector('.version-badge');
     if(!el) return;
     try{
-      const r = await fetch('/api/version', { cache:'no-store' });
-      el.textContent = r.ok ? (await r.text()).trim() || 'v—' : 'v—';
-    }catch{ el.textContent = 'v—'; }
+      const r = await fetch(BASE + '/api/version', { cache: 'no-store' });
+      if (r.ok) {
+        const v = (await r.text()).trim();
+        if (v) { el.textContent = v; return; }
+      }
+    }catch{ /* ignora */ }
+    // Fallback em GitHub Pages (sem Functions)
+    el.textContent = 'v—';
   }
 
-  // ===== util: esperar elementos existirem (caso pie seja injetado após load) =====
-  function waitFor(sel, timeout = 10000){
-    return new Promise((resolve, reject)=>{
-      const found = document.querySelector(sel);
-      if(found) return resolve(found);
-      const obs = new MutationObserver(()=>{
-        const el = document.querySelector(sel);
-        if(el){ obs.disconnect(); resolve(el); }
-      });
-      obs.observe(document.documentElement, {childList:true, subtree:true});
-      setTimeout(()=>{ obs.disconnect(); reject(new Error('timeout')); }, timeout);
-    });
-  }
-
-  // ===== contadores =====
+  // ===== contadores (Cloudflare Worker) =====
   const API = 'https://mellamollama-contadores.mellamollamacurso.workers.dev';
   const fmt = n => (n==null || isNaN(n)) ? '—' : new Intl.NumberFormat('es-ES').format(n);
+
   async function jget(path, opts){
     const r = await fetch(API + path, Object.assign({ cache:'no-store', mode:'cors' }, opts || {}));
     if(!r.ok) throw new Error('http ' + r.status);
@@ -34,15 +30,13 @@
   }
 
   async function start(){
-    setVersionBadge();
-    let totalEl, onlineEl;
-    try{
-      totalEl  = await waitFor('#stat-total');
-      onlineEl = await waitFor('#stat-online');
-    }catch{ return; }
+    // Garante que os elementos existam
+    const totalEl  = document.getElementById('stat-total');
+    const onlineEl = document.getElementById('stat-online');
+    if (!totalEl || !onlineEl) return;
 
     try{
-      const t = await jget('/visits');
+      const t = await jget('/visits');         // únicos
       totalEl.textContent = fmt(t.value || 0);
     }catch{ totalEl.textContent = '—'; }
 
@@ -64,5 +58,5 @@
     try{ navigator.sendBeacon(API + '/online/out'); }catch{}
   });
 
-  window.addEventListener('load', start);
+  window.addEventListener('load', ()=>{ setVersionBadge(); start(); });
 })();
