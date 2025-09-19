@@ -1,3 +1,4 @@
+<!-- partes/pie.html — solo marcado; sin scripts inline -->
 <footer class="footer-strip">
   <img class="avatar" src="https://mellamollamacurso.github.io/lengua/inicial/a05.png" alt="avatar del profe" />
   <div class="footer-texts">
@@ -15,55 +16,3 @@
     <span style="margin-left:24px">llamas en línea: <span class="val" id="stat-online">—</span></span>
   </div>
 </footer>
-
-<script>
-(async () => {
-  // ====== Versión automática (Pages Function /api/version) ======
-  const el = document.querySelector('.version-badge');
-  if (el) {
-    try {
-      const r = await fetch('/api/version', { cache: 'no-store' });
-      el.textContent = r.ok ? (await r.text()).trim() || 'v—' : 'v—';
-    } catch { el.textContent = 'v—'; }
-  }
-
-  // ====== Contadores (Cloudflare Worker) ======
-  const elTotal  = document.getElementById('stat-total');
-  const elOnline = document.getElementById('stat-online');
-  if (!elTotal || !elOnline) return;
-
-  const API = 'https://mellamollama-contadores.mellamollamacurso.workers.dev';
-  const fmt = n => (n==null || isNaN(n)) ? '—' : new Intl.NumberFormat('es-ES').format(n);
-
-  async function jget(path, opts){
-    const r = await fetch(API + path, Object.assign({ cache:'no-store', mode:'cors' }, opts || {}));
-    if(!r.ok) throw new Error('http ' + r.status);
-    return await r.json();
-  }
-
-  async function init(){
-    try{
-      const t = await jget('/visits');
-      elTotal.textContent = fmt(t.value || 0);
-    }catch{ elTotal.textContent = '—'; }
-
-    try{
-      await jget('/online/in', { method:'POST', keepalive:true });
-      const on = await jget('/online');
-      elOnline.textContent = fmt(on.value || 0);
-    }catch{ elOnline.textContent = '—'; }
-
-    setInterval(async ()=>{
-      try{
-        const on = await jget('/online');
-        elOnline.textContent = fmt(on.value || 0);
-      }catch{}
-    }, 15000);
-  }
-
-  window.addEventListener('beforeunload', ()=>{
-    try{ navigator.sendBeacon(API + '/online/out'); }catch{}
-  });
-  window.addEventListener('load', init);
-})();
-</script>
