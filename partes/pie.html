@@ -1,4 +1,4 @@
-<!-- partes/pie.html (com contador 'llamas' + fallback) -->
+<!-- partes/pie.html (contadores com multi-fallback e sombra intacta no layout) -->
 <footer class="footer-strip">
   <img class="avatar" src="https://mellamollamacurso.github.io/lengua/inicial/a05.png" alt="avatar del profe" />
   <div class="footer-texts">
@@ -26,48 +26,59 @@
   const NS = 'mellamollamacurso_github_io_portal';
   const fmt = n => (n==null || isNaN(n)) ? '—' : new Intl.NumberFormat('es-ES').format(n);
 
-  async function getJSON(url){
-    // tentativa direta
-    try{
-      const r = await fetch(url, {cache:'no-store', mode:'cors'});
-      if(!r.ok) throw 0;
-      return await r.json();
-    }catch(e){}
-    // fallback via proxy (para quando adblock/CORS bloquear)
-    const proxy = 'https://api.allorigins.win/get?disableCache=true&url=' + encodeURIComponent(url);
-    const pr = await fetch(proxy, {cache:'no-store'});
-    const data = await pr.json();
-    return JSON.parse(data.contents);
+  const DIRECT = (path) => `https://api.countapi.xyz/${path}`;
+  const AORIG  = (path) => `https://api.allorigins.win/get?disableCache=true&url=${encodeURIComponent(DIRECT(path))}`;
+  const CODETB = (path) => `https://api.codetabs.com/v1/proxy/?quest=${encodeURIComponent(DIRECT(path))}`;
+  const JINAA  = (path) => `https://r.jina.ai/http://api.countapi.xyz/${path}`;
+
+  async function tryFetch(url, parseWrapped=false){
+    const r = await fetch(url, {cache:'no-store'});
+    if(!r.ok) throw 0;
+    const t = await r.text();
+    if(parseWrapped){
+      try { const j = JSON.parse(t); if(j && j.contents) return JSON.parse(j.contents); } catch(e){}
+      try { return JSON.parse(t); } catch(e){}
+      throw 0;
+    }
+    try { return JSON.parse(t); } catch(e){ throw 0; }
+  }
+
+  async function getCount(path){
+    // cadeia de fallbacks: direta -> allorigins -> codetabs -> jina
+    try { return await tryFetch(DIRECT(path)); } catch(e){}
+    try { return await tryFetch(AORIG(path), true); } catch(e){}
+    try { return await tryFetch(CODETB(path)); } catch(e){}
+    try { return await tryFetch(JINAA(path)); } catch(e){}
+    throw 0;
   }
 
   async function init(){
     if(!navigator.onLine){ elTotal.textContent = elOnline.textContent = '—'; return; }
 
-    try{ await getJSON(`https://api.countapi.xyz/create/${NS}/online?value=0`); }catch(e){}
+    try{ await getCount(`create/${NS}/online?value=0`); }catch(e){}
 
     try{
-      const total = await getJSON(`https://api.countapi.xyz/hit/${NS}/visits`);
+      const total = await getCount(`hit/${NS}/visits`);
       elTotal.textContent = fmt(total.value||0);
     }catch(e){ elTotal.textContent = '—'; }
 
     try{
-      await getJSON(`https://api.countapi.xyz/update/${NS}/online?amount=1`);
-      const online = await getJSON(`https://api.countapi.xyz/get/${NS}/online`);
+      await getCount(`update/${NS}/online?amount=1`);
+      const online = await getCount(`get/${NS}/online`);
       elOnline.textContent = fmt(online.value||0);
     }catch(e){ elOnline.textContent = '—'; }
 
-    // atualização periódica
     setInterval(async ()=>{
       if(!navigator.onLine) return;
       try{
-        const online = await getJSON(`https://api.countapi.xyz/get/${NS}/online`);
+        const online = await getCount(`get/${NS}/online`);
         elOnline.textContent = fmt(online.value||0);
       }catch(e){}
     }, 15000);
   }
 
   window.addEventListener('beforeunload', ()=>{
-    try{ navigator.sendBeacon(`https://api.countapi.xyz/update/${NS}/online?amount=-1`); }catch(e){}
+    try{ navigator.sendBeacon(DIRECT(`update/${NS}/online?amount=-1`)); }catch(e){}
   });
   window.addEventListener('online', init);
   window.addEventListener('load', init);
