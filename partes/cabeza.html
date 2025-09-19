@@ -1,9 +1,10 @@
-<!-- partes/cabeza.html (com ajuste de overflow do dropdown) -->
+<!-- partes/cabeza.html (fix: dropdown acima do miolo, sem scroll no header) -->
 <style>
-/* === Correção: dropdown expande sobre o miolo (sem scroll no header) === */
-.menu-slot{ overflow-y: visible; }                 /* mantém overflow-x:auto do layout */
-.navbar, .nav-list, .nav-item, .has-dropdown{ overflow: visible; }
-.popover{ z-index: 10050; }                        /* acima do conteúdo do miolo */
+  /* Garantir que nada recorte o dropdown */
+  .top-bar{ z-index: 9000; pointer-events: none; }
+  .menu-slot{ z-index: 10100; overflow: visible !important; } /* sem clipping */
+  .navbar, .nav-list, .nav-item, .has-dropdown{ overflow: visible !important; }
+  .popover{ z-index: 10200; } /* acima do miolo */
 </style>
 
 <div class="top-bar" aria-hidden="true"></div>
