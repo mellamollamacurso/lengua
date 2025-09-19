@@ -12,8 +12,8 @@
   </div>
 
   <div id="llama-stats" aria-live="polite">
-    <span>Total de llamas: <span class="val" id="stat-total">—</span></span>
-    <span style="margin-left:24px">Llamas en línea: <span class="val" id="stat-online">—</span></span>
+    <span>total de llamas: <span class="val" id="stat-total">—</span></span>
+    <span style="margin-left:24px">llamas en línea: <span class="val" id="stat-online">—</span></span>
   </div>
 </footer>
 
@@ -46,8 +46,8 @@
   var elOnline = document.getElementById('stat-online');
   if(!elTotal || !elOnline) return;
 
-  // 🔧 SUBSTITUA pela URL real do seu Worker (ex.: https://mellamollama-contadores.seu-nome.workers.dev)
-  var API = 'https://SEU-WORKER.workers.dev';
+  // URL real do Worker
+  var API = 'https://mellamollama-contadores.mellamollamacurso.workers.dev';
 
   var fmt = function(n){ return (n==null || isNaN(n)) ? '—' : new Intl.NumberFormat('es-ES').format(n); };
 
