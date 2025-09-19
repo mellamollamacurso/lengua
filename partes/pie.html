@@ -1,4 +1,4 @@
-<!-- partes/pie.html — solo marcado; sin scripts inline -->
+<!-- partes/pie.html — inclui o script externo; não depende de 'cabeza' -->
 <footer class="footer-strip">
   <img class="avatar" src="https://mellamollamacurso.github.io/lengua/inicial/a05.png" alt="avatar del profe" />
   <div class="footer-texts">
@@ -16,3 +16,6 @@
     <span style="margin-left:24px">llamas en línea: <span class="val" id="stat-online">—</span></span>
   </div>
 </footer>
+
+<!-- carrega a lógica do pie sem depender de 'cabeza' -->
+<script src="/partes/pie.js" defer></script>
