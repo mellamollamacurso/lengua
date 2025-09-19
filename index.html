@@ -265,6 +265,7 @@ window.addEventListener('online', initCounters);
 window.addEventListener('offline', setPlaceholders);
 window.addEventListener('beforeunload', decOnline);
 </script>
+
 <div id="pie"></div>
 <script>
 (function(){
@@ -272,9 +273,10 @@ window.addEventListener('beforeunload', decOnline);
   var base = '/' + (location.pathname.split('/').filter(Boolean)[0] || '');
   fetch(base + '/partes/pie.html?v=' + Date.now(), { cache:'no-store' })
     .then(r => r.text())
-    .then(h => { document.getElementById('pie').innerHTML = h; })
-    .catch(()=>{ /* silencioso */ });
+    .then(h => { var c=document.getElementById('pie'); if(c) c.innerHTML = h; })
+    .catch(function(){});
 })();
 </script>
+
 </body>
 </html>
