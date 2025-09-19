@@ -1,4 +1,4 @@
-<!-- partes/pie.html — compatível com GitHub Pages (subpasta /lengua) -->
+<!-- partes/pie.html — versão clássica com script embutido -->
 <footer class="footer-strip">
   <img class="avatar" src="https://mellamollamacurso.github.io/lengua/inicial/a05.png" alt="avatar del profe" />
   <div class="footer-texts">
@@ -17,5 +17,62 @@
   </div>
 </footer>
 
-<!-- importante: usar caminho relativo para funcionar em /lengua/ -->
-<script src="./pie.js" defer></script>
+<script>
+(function(){
+  // Detecta base quando estiver em /lengua (GitHub Pages)
+  var parts = location.pathname.split('/').filter(Boolean);
+  var BASE = parts.length ? '/' + parts[0] : '';
+
+  // ===== Versión automática (no Pages cai no fallback) =====
+  (async function setVersion(){
+    var el = document.querySelector('.version-badge');
+    if(!el) return;
+    try{
+      var r = await fetch(BASE + '/api/version', { cache:'no-store' });
+      if(r.ok){
+        var v = (await r.text()).trim();
+        if(v){ el.textContent = v; return; }
+      }
+    }catch(e){}
+    el.textContent = 'v—';
+  })();
+
+  // ===== Contadores (Cloudflare Worker) =====
+  var API = 'https://mellamollama-contadores.mellamollamacurso.workers.dev';
+  var elTotal  = document.getElementById('stat-total');
+  var elOnline = document.getElementById('stat-online');
+  if(!elTotal || !elOnline) return;
+  var fmt = function(n){ return (n==null || isNaN(n)) ? '—' : new Intl.NumberFormat('es-ES').format(n); };
+
+  async function jget(path, opts){
+    var r = await fetch(API + path, Object.assign({ cache:'no-store', mode:'cors' }, opts || {}));
+    if(!r.ok) throw new Error('http ' + r.status);
+    return await r.json();
+  }
+
+  async function init(){
+    try{
+      var t = await jget('/visits');     // únicos
+      elTotal.textContent = fmt(t.value || 0);
+    }catch(e){ elTotal.textContent = '—'; }
+
+    try{
+      await jget('/online/in', { method:'POST', keepalive:true });
+      var on = await jget('/online');
+      elOnline.textContent = fmt(on.value || 0);
+    }catch(e){ elOnline.textContent = '—'; }
+
+    setInterval(async function(){
+      try{
+        var on2 = await jget('/online');
+        elOnline.textContent = fmt(on2.value || 0);
+      }catch(e){}
+    }, 15000);
+  }
+
+  window.addEventListener('beforeunload', function(){
+    try{ navigator.sendBeacon(API + '/online/out'); }catch(e){}
+  });
+  window.addEventListener('load', init);
+})();
+</script>
