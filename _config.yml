@@ -1,0 +1,3 @@
+# _config.yml — directorios personalizados
+includes_dir: partes
+layouts_dir: plantillas
