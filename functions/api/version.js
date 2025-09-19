@@ -2,7 +2,7 @@
 // Gera versão automática v0.xx baseada em deploys do Cloudflare Pages.
 // Usa KV para guardar o último commit e o número da versão.
 
-// Binding esperado em Settings > Functions > Bindings: COUNTERS -> mellamollama-contadores-kv
+// Binding esperado em Settings > Functions > KV Bindings: COUNTERS -> mellamollama-contadores-kv
 export async function onRequestGet(context) {
   const kv = context.env.COUNTERS;
   const sha = context.env.CF_PAGES_COMMIT_SHA || "dev";
