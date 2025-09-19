@@ -1,4 +1,3 @@
-<!-- pie.html — contadores (Workers) + versão automática do deploy (Pages Functions /api/version) -->
 <footer class="footer-strip">
   <img class="avatar" src="https://mellamollamacurso.github.io/lengua/inicial/a05.png" alt="avatar del profe" />
   <div class="footer-texts">
@@ -18,31 +17,22 @@
 </footer>
 
 <script>
-(function(){
-  // ====== Versión automática do deploy ======
-  (async function setVersionBadge(){
-    const el = document.querySelector('.version-badge');
-    if(!el) return;
-    try{
-      // Busca a versão no endpoint de Functions (mesma origem)
-      const r = await fetch('/api/version', { cache:'no-store' });
-      if(r.ok){
-        const v = (await r.text()).trim();
-        if(v) { el.textContent = v; return; }
-      }
-    }catch(e){}
-    // Fallback se /api/version não existir
-    el.textContent = 'v—';
-  })();
+(async () => {
+  // ====== Versión automática (Pages Function /api/version) ======
+  const el = document.querySelector('.version-badge');
+  if (el) {
+    try {
+      const r = await fetch('/api/version', { cache: 'no-store' });
+      el.textContent = r.ok ? (await r.text()).trim() || 'v—' : 'v—';
+    } catch { el.textContent = 'v—'; }
+  }
 
-  // ====== Contadores (Cloudflare Workers) ======
+  // ====== Contadores (Cloudflare Worker) ======
   const elTotal  = document.getElementById('stat-total');
   const elOnline = document.getElementById('stat-online');
-  if(!elTotal || !elOnline) return;
+  if (!elTotal || !elOnline) return;
 
-  // URL real do Worker
   const API = 'https://mellamollama-contadores.mellamollamacurso.workers.dev';
-
   const fmt = n => (n==null || isNaN(n)) ? '—' : new Intl.NumberFormat('es-ES').format(n);
 
   async function jget(path, opts){
@@ -52,32 +42,28 @@
   }
 
   async function init(){
-    if(!navigator.onLine){ elTotal.textContent = elOnline.textContent = '—'; return; }
-
     try{
-      const t = await jget('/visits');     // incrementa únicos
+      const t = await jget('/visits');
       elTotal.textContent = fmt(t.value || 0);
-    }catch(e){ elTotal.textContent = '—'; }
+    }catch{ elTotal.textContent = '—'; }
 
     try{
       await jget('/online/in', { method:'POST', keepalive:true });
       const on = await jget('/online');
       elOnline.textContent = fmt(on.value || 0);
-    }catch(e){ elOnline.textContent = '—'; }
+    }catch{ elOnline.textContent = '—'; }
 
     setInterval(async ()=>{
-      if(!navigator.onLine) return;
       try{
         const on = await jget('/online');
         elOnline.textContent = fmt(on.value || 0);
-      }catch(e){}
+      }catch{}
     }, 15000);
   }
 
   window.addEventListener('beforeunload', ()=>{
-    try { navigator.sendBeacon(API + '/online/out'); } catch(e){}
+    try{ navigator.sendBeacon(API + '/online/out'); }catch{}
   });
-  window.addEventListener('online', init);
   window.addEventListener('load', init);
 })();
 </script>
