@@ -1,4 +1,4 @@
-<!-- pie.html — versión con contadores (Workers) y versión del deploy desde /VERSION -->
+<!-- pie.html — contadores (Workers) + versão automática do deploy (Pages Functions /api/version) -->
 <footer class="footer-strip">
   <img class="avatar" src="https://mellamollamacurso.github.io/lengua/inicial/a05.png" alt="avatar del profe" />
   <div class="footer-texts">
@@ -19,40 +19,34 @@
 
 <script>
 (function(){
-  // ====== Versión del deploy (v0.30, v0.31, ...) desde un archivo estático /VERSION ======
+  // ====== Versión automática do deploy ======
   (async function setVersionBadge(){
-    var el = document.querySelector('.version-badge');
+    const el = document.querySelector('.version-badge');
     if(!el) return;
     try{
-      // Crie um arquivo texto chamado VERSION na raiz do repositório (ex.: "v0.30")
-      var r = await fetch('/VERSION', { cache:'no-store' });
+      // Busca a versão no endpoint de Functions (mesma origem)
+      const r = await fetch('/api/version', { cache:'no-store' });
       if(r.ok){
-        var v = (await r.text()).trim();
-        el.textContent = v || 'v—';
-        return;
+        const v = (await r.text()).trim();
+        if(v) { el.textContent = v; return; }
       }
     }catch(e){}
-    // Fallback: mantém o valor atual ou usa lastModified se não houver /VERSION
-    if(el.textContent === 'v—'){
-      var d = new Date(document.lastModified);
-      var pad = function(n){ return String(n).padStart(2,'0'); };
-      var vv = 'v' + String(d.getFullYear()).slice(2) + '.' + pad(d.getMonth()+1) + '.' + pad(d.getDate()) + '-' + pad(d.getHours()) + pad(d.getMinutes());
-      el.textContent = vv;
-    }
+    // Fallback se /api/version não existir
+    el.textContent = 'v—';
   })();
 
-  // ====== Contadores (Cloudflare Workers) — /visits, /online/in, /online, /online/out ======
-  var elTotal  = document.getElementById('stat-total');
-  var elOnline = document.getElementById('stat-online');
+  // ====== Contadores (Cloudflare Workers) ======
+  const elTotal  = document.getElementById('stat-total');
+  const elOnline = document.getElementById('stat-online');
   if(!elTotal || !elOnline) return;
 
   // URL real do Worker
-  var API = 'https://mellamollama-contadores.mellamollamacurso.workers.dev';
+  const API = 'https://mellamollama-contadores.mellamollamacurso.workers.dev';
 
-  var fmt = function(n){ return (n==null || isNaN(n)) ? '—' : new Intl.NumberFormat('es-ES').format(n); };
+  const fmt = n => (n==null || isNaN(n)) ? '—' : new Intl.NumberFormat('es-ES').format(n);
 
   async function jget(path, opts){
-    var r = await fetch(API + path, Object.assign({ cache:'no-store', mode:'cors' }, opts || {}));
+    const r = await fetch(API + path, Object.assign({ cache:'no-store', mode:'cors' }, opts || {}));
     if(!r.ok) throw new Error('http ' + r.status);
     return await r.json();
   }
@@ -61,33 +55,28 @@
     if(!navigator.onLine){ elTotal.textContent = elOnline.textContent = '—'; return; }
 
     try{
-      // /visits incrementa ÚNICOS e devolve { value }
-      var t = await jget('/visits');
+      const t = await jget('/visits');     // incrementa únicos
       elTotal.textContent = fmt(t.value || 0);
     }catch(e){ elTotal.textContent = '—'; }
 
     try{
-      // marca entrada online e lê total online
       await jget('/online/in', { method:'POST', keepalive:true });
-      var on = await jget('/online');
+      const on = await jget('/online');
       elOnline.textContent = fmt(on.value || 0);
     }catch(e){ elOnline.textContent = '—'; }
 
-    // refresco periódico do "en línea"
-    setInterval(async function(){
+    setInterval(async ()=>{
       if(!navigator.onLine) return;
       try{
-        var on2 = await jget('/online');
-        elOnline.textContent = fmt(on2.value || 0);
+        const on = await jget('/online');
+        elOnline.textContent = fmt(on.value || 0);
       }catch(e){}
     }, 15000);
   }
 
-  // marca saída (melhor esforço)
-  window.addEventListener('beforeunload', function(){
+  window.addEventListener('beforeunload', ()=>{
     try { navigator.sendBeacon(API + '/online/out'); } catch(e){}
   });
-
   window.addEventListener('online', init);
   window.addEventListener('load', init);
 })();
