@@ -1,4 +1,3 @@
-<!-- partes/pie.html — versão clássica com script embutido -->
 <footer class="footer-strip">
   <img class="avatar" src="https://mellamollamacurso.github.io/lengua/inicial/a05.png" alt="avatar del profe" />
   <div class="footer-texts">
@@ -23,8 +22,8 @@
   var parts = location.pathname.split('/').filter(Boolean);
   var BASE = parts.length ? '/' + parts[0] : '';
 
-  // ===== Versión automática (no Pages cai no fallback) =====
-  (async function setVersion(){
+  // ===== Versión automática (fallback em GH Pages) =====
+  (async function(){
     var el = document.querySelector('.version-badge');
     if(!el) return;
     try{
@@ -41,7 +40,6 @@
   var API = 'https://mellamollama-contadores.mellamollamacurso.workers.dev';
   var elTotal  = document.getElementById('stat-total');
   var elOnline = document.getElementById('stat-online');
-  if(!elTotal || !elOnline) return;
   var fmt = function(n){ return (n==null || isNaN(n)) ? '—' : new Intl.NumberFormat('es-ES').format(n); };
 
   async function jget(path, opts){
@@ -52,7 +50,7 @@
 
   async function init(){
     try{
-      var t = await jget('/visits');     // únicos
+      var t = await jget('/visits');   // únicos
       elTotal.textContent = fmt(t.value || 0);
     }catch(e){ elTotal.textContent = '—'; }
 
@@ -62,6 +60,7 @@
       elOnline.textContent = fmt(on.value || 0);
     }catch(e){ elOnline.textContent = '—'; }
 
+    // atualização periódica
     setInterval(async function(){
       try{
         var on2 = await jget('/online');
