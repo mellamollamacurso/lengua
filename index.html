@@ -86,15 +86,15 @@
   .footer-right{ margin-left:auto; text-align:right; color:#fff; font-family:"TTLakesNeueTrialLight","TTLakesNeueTrialCompressedBold", Arial, sans-serif; }
   .metric{ font-size:9pt; line-height:1.2; opacity:0.95; }
 
-  ::-webkit-scrollbar       { width:18px; height:18px; }
-  ::-webkit-scrollbar-track { background:#000; }
-  ::-webkit-scrollbar-thumb {
-    background:#7c3aed;
-    border:3px solid #f7cb44;
-    border-radius:12px;
-  }
-  ::-webkit-scrollbar-button { background:#7c3aed; height:18px; width:18px; }
-  * { scrollbar-width: auto; scrollbar-color: #7c3aed #000; }
+::-webkit-scrollbar       { width:18px; height:18px; }
+::-webkit-scrollbar-track { background:#000; }              /* trilho preto */
+::-webkit-scrollbar-thumb {
+  background:#7c3aed;                                       /* polegar roxo */
+  border:3px solid #000;                                    /* borda preta */
+  border-radius:12px;
+}
+::-webkit-scrollbar-button { background:#7c3aed; height:18px; width:18px; } /* setas roxas */
+* { scrollbar-width: auto; scrollbar-color: #7c3aed #000; } /* Firefox: thumb roxo, trilho preto */
 
   :root{
     --nav-bg:transparent; --nav-fg:#ffffff; --nav-width:auto; --nav-item-h:35px;
