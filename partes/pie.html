@@ -1,4 +1,4 @@
-<!-- partes/footer.html -->
+<!-- partes/pie.html (com contador 'llamas' + fallback) -->
 <footer class="footer-strip">
   <img class="avatar" src="https://mellamollamacurso.github.io/lengua/inicial/a05.png" alt="avatar del profe" />
   <div class="footer-texts">
@@ -16,3 +16,60 @@
     <span style="margin-left:24px">llamas conectadas: <span class="val" id="stat-online">—</span></span>
   </div>
 </footer>
+
+<script>
+(function(){
+  const elTotal  = document.getElementById('stat-total');
+  const elOnline = document.getElementById('stat-online');
+  if(!elTotal || !elOnline) return;
+
+  const NS = 'mellamollamacurso_github_io_portal';
+  const fmt = n => (n==null || isNaN(n)) ? '—' : new Intl.NumberFormat('es-ES').format(n);
+
+  async function getJSON(url){
+    // tentativa direta
+    try{
+      const r = await fetch(url, {cache:'no-store', mode:'cors'});
+      if(!r.ok) throw 0;
+      return await r.json();
+    }catch(e){}
+    // fallback via proxy (para quando adblock/CORS bloquear)
+    const proxy = 'https://api.allorigins.win/get?disableCache=true&url=' + encodeURIComponent(url);
+    const pr = await fetch(proxy, {cache:'no-store'});
+    const data = await pr.json();
+    return JSON.parse(data.contents);
+  }
+
+  async function init(){
+    if(!navigator.onLine){ elTotal.textContent = elOnline.textContent = '—'; return; }
+
+    try{ await getJSON(`https://api.countapi.xyz/create/${NS}/online?value=0`); }catch(e){}
+
+    try{
+      const total = await getJSON(`https://api.countapi.xyz/hit/${NS}/visits`);
+      elTotal.textContent = fmt(total.value||0);
+    }catch(e){ elTotal.textContent = '—'; }
+
+    try{
+      await getJSON(`https://api.countapi.xyz/update/${NS}/online?amount=1`);
+      const online = await getJSON(`https://api.countapi.xyz/get/${NS}/online`);
+      elOnline.textContent = fmt(online.value||0);
+    }catch(e){ elOnline.textContent = '—'; }
+
+    // atualização periódica
+    setInterval(async ()=>{
+      if(!navigator.onLine) return;
+      try{
+        const online = await getJSON(`https://api.countapi.xyz/get/${NS}/online`);
+        elOnline.textContent = fmt(online.value||0);
+      }catch(e){}
+    }, 15000);
+  }
+
+  window.addEventListener('beforeunload', ()=>{
+    try{ navigator.sendBeacon(`https://api.countapi.xyz/update/${NS}/online?amount=-1`); }catch(e){}
+  });
+  window.addEventListener('online', init);
+  window.addEventListener('load', init);
+})();
+</script>
