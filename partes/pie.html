@@ -1,4 +1,4 @@
-<!-- pie.html — versión con contadores (Workers) y versión automática en el pie -->
+<!-- pie.html — versión con contadores (Workers) y versión del deploy desde /VERSION -->
 <footer class="footer-strip">
   <img class="avatar" src="https://mellamollamacurso.github.io/lengua/inicial/a05.png" alt="avatar del profe" />
   <div class="footer-texts">
@@ -19,15 +19,26 @@
 
 <script>
 (function(){
-  // ====== Versión automática junto a "Curso Cultura Hispánica" ======
-  (function setVersionBadge(){
+  // ====== Versión del deploy (v0.30, v0.31, ...) desde un archivo estático /VERSION ======
+  (async function setVersionBadge(){
     var el = document.querySelector('.version-badge');
     if(!el) return;
-    var d = new Date(document.lastModified);
-    var pad = function(n){ return String(n).padStart(2,'0'); };
-    var v = 'v' + String(d.getFullYear()).slice(2) + '.' + pad(d.getMonth()+1) + '.' + pad(d.getDate()) +
-            '-' + pad(d.getHours()) + pad(d.getMinutes());
-    el.textContent = v;
+    try{
+      // Crie um arquivo texto chamado VERSION na raiz do repositório (ex.: "v0.30")
+      var r = await fetch('/VERSION', { cache:'no-store' });
+      if(r.ok){
+        var v = (await r.text()).trim();
+        el.textContent = v || 'v—';
+        return;
+      }
+    }catch(e){}
+    // Fallback: mantém o valor atual ou usa lastModified se não houver /VERSION
+    if(el.textContent === 'v—'){
+      var d = new Date(document.lastModified);
+      var pad = function(n){ return String(n).padStart(2,'0'); };
+      var vv = 'v' + String(d.getFullYear()).slice(2) + '.' + pad(d.getMonth()+1) + '.' + pad(d.getDate()) + '-' + pad(d.getHours()) + pad(d.getMinutes());
+      el.textContent = vv;
+    }
   })();
 
   // ====== Contadores (Cloudflare Workers) — /visits, /online/in, /online, /online/out ======
@@ -35,7 +46,7 @@
   var elOnline = document.getElementById('stat-online');
   if(!elTotal || !elOnline) return;
 
-  // 🔧 TROQUE pela URL real do seu Worker (ex.: https://mellamollama-contadores.seu-dominio.workers.dev)
+  // 🔧 SUBSTITUA pela URL real do seu Worker (ex.: https://mellamollama-contadores.seu-nome.workers.dev)
   var API = 'https://SEU-WORKER.workers.dev';
 
   var fmt = function(n){ return (n==null || isNaN(n)) ? '—' : new Intl.NumberFormat('es-ES').format(n); };
