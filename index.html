@@ -136,6 +136,27 @@
     .nav-list{ white-space:nowrap; }
   }
 </style>
+
+<style>
+/* Barra de rolagem mais larga e visível */
+::-webkit-scrollbar {
+  width: 16px;
+  height: 16px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #999;
+  border-radius: 8px;
+  border: 3px solid #fff;
+}
+::-webkit-scrollbar-track {
+  background: #f0f0f0;
+}
+* {
+  scrollbar-width: auto;
+  scrollbar-color: #999 #f0f0f0;
+}
+</style>
+
 </head>
 <body>
   <div class="top-bar" aria-hidden="true"></div>
