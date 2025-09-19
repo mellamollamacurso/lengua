@@ -1,4 +1,11 @@
-<!-- partes/header.html -->
+<!-- partes/cabeza.html (com ajuste de overflow do dropdown) -->
+<style>
+/* === Correção: dropdown expande sobre o miolo (sem scroll no header) === */
+.menu-slot{ overflow-y: visible; }                 /* mantém overflow-x:auto do layout */
+.navbar, .nav-list, .nav-item, .has-dropdown{ overflow: visible; }
+.popover{ z-index: 10050; }                        /* acima do conteúdo do miolo */
+</style>
+
 <div class="top-bar" aria-hidden="true"></div>
 <img class="logo" src="https://mellamollamacurso.github.io/lengua/inicial/a03.gif" alt="Cultura Hispánica" />
 
