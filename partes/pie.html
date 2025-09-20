@@ -1,3 +1,4 @@
+<!-- partes/pie.html (versão com endpoint próprio/Worker) -->
 <footer class="footer-strip">
   <img class="avatar" src="https://mellamollamacurso.github.io/lengua/inicial/a05.png" alt="avatar del profe" />
   <div class="footer-texts">
@@ -5,73 +6,63 @@
     <div class="footer-sub">profesor y creador</div>
     <div class="footer-line2">
       <div class="course-name">Curso Cultura Hispánica</div>
-      <div class="version-badge" aria-label="versión del sitio">v—</div>
+      <div class="version-badge">v{{ site.time | date: "%y.%m.%d-%H%M" }}</div>
     </div>
-    <div class="footer-legal">todos los derechos reservados ®</div>
+    <div class="footer-legal">todos los derechos reservados</div>
   </div>
 
   <div id="llama-stats" aria-live="polite">
     <span>total de llamas: <span class="val" id="stat-total">—</span></span>
-    <span style="margin-left:24px">llamas en línea: <span class="val" id="stat-online">—</span></span>
+    <span style="margin-left:24px">llamas conectadas: <span class="val" id="stat-online">—</span></span>
   </div>
 </footer>
 
 <script>
 (function(){
-  // Detecta base quando estiver em /lengua (GitHub Pages)
-  var parts = location.pathname.split('/').filter(Boolean);
-  var BASE = parts.length ? '/' + parts[0] : '';
+  const elTotal  = document.getElementById('stat-total');
+  const elOnline = document.getElementById('stat-online');
+  if(!elTotal || !elOnline) return;
 
-  // ===== Versión automática (fallback em GH Pages) =====
-  (async function(){
-    var el = document.querySelector('.version-badge');
-    if(!el) return;
-    try{
-      var r = await fetch(BASE + '/api/version', { cache:'no-store' });
-      if(r.ok){
-        var v = (await r.text()).trim();
-        if(v){ el.textContent = v; return; }
-      }
-    }catch(e){}
-    el.textContent = 'v—';
-  })();
+  // ALTERE AQUI: defina a URL do seu Worker
+  const API = 'https://SEU-WORKER.workers.dev'; // ex.: https://llama-stats.yourdomain.com
 
-  // ===== Contadores (Cloudflare Worker) =====
-  var API = 'https://mellamollama-contadores.mellamollamacurso.workers.dev';
-  var elTotal  = document.getElementById('stat-total');
-  var elOnline = document.getElementById('stat-online');
-  var fmt = function(n){ return (n==null || isNaN(n)) ? '—' : new Intl.NumberFormat('es-ES').format(n); };
+  const fmt = n => (n==null || isNaN(n)) ? '—' : new Intl.NumberFormat('es-ES').format(n);
 
   async function jget(path, opts){
-    var r = await fetch(API + path, Object.assign({ cache:'no-store', mode:'cors' }, opts || {}));
-    if(!r.ok) throw new Error('http ' + r.status);
+    const r = await fetch(API + path, Object.assign({ cache:'no-store', mode:'cors' }, opts || {}));
+    if(!r.ok) throw 0;
     return await r.json();
   }
 
   async function init(){
+    if(!navigator.onLine){ elTotal.textContent = elOnline.textContent = '—'; return; }
+
     try{
-      var t = await jget('/visits');   // únicos
-      elTotal.textContent = fmt(t.value || 0);
+      const t = await jget('/visits');         // incrementa e retorna total
+      elTotal.textContent = fmt(t.value||0);
     }catch(e){ elTotal.textContent = '—'; }
 
     try{
       await jget('/online/in', { method:'POST', keepalive:true });
-      var on = await jget('/online');
-      elOnline.textContent = fmt(on.value || 0);
+      const on = await jget('/online');
+      elOnline.textContent = fmt(on.value||0);
     }catch(e){ elOnline.textContent = '—'; }
 
-    // atualização periódica
-    setInterval(async function(){
+    setInterval(async ()=>{
+      if(!navigator.onLine) return;
       try{
-        var on2 = await jget('/online');
-        elOnline.textContent = fmt(on2.value || 0);
+        const on = await jget('/online');
+        elOnline.textContent = fmt(on.value||0);
       }catch(e){}
     }, 15000);
   }
 
-  window.addEventListener('beforeunload', function(){
-    try{ navigator.sendBeacon(API + '/online/out'); }catch(e){}
+  window.addEventListener('beforeunload', ()=>{
+    try{
+      navigator.sendBeacon(API + '/online/out');
+    }catch(e){}
   });
+  window.addEventListener('online', init);
   window.addEventListener('load', init);
 })();
 </script>
