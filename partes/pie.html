@@ -5,64 +5,6 @@
     <div class="footer-line1">Profe : Álex Barges</div>
     <div class="footer-sub">profesor y creador</div>
     <div class="footer-line2">
-      <div class="course-name">Curso Cultura Hispánica</div>
-      <div class="version-badge">v{{ site.time | date: "%y.%m.%d-%H%M" }}</div>
-    </div>
+      <div class="course-name">Curso Cultura Hispánica</div></div>
     <div class="footer-legal">todos los derechos reservados</div>
-  </div>
-
-  <div id="llama-stats" aria-live="polite">
-    <span>total de llamas: <span class="val" id="stat-total">—</span></span>
-    <span style="margin-left:24px">llamas conectadas: <span class="val" id="stat-online">—</span></span>
-  </div>
-</footer>
-
-<script>
-(function(){
-  const elTotal  = document.getElementById('stat-total');
-  const elOnline = document.getElementById('stat-online');
-  if(!elTotal || !elOnline) return;
-
-  // ALTERE AQUI: defina a URL do seu Worker
-  const API = 'https://SEU-WORKER.workers.dev'; // ex.: https://llama-stats.yourdomain.com
-
-  const fmt = n => (n==null || isNaN(n)) ? '—' : new Intl.NumberFormat('es-ES').format(n);
-
-  async function jget(path, opts){
-    const r = await fetch(API + path, Object.assign({ cache:'no-store', mode:'cors' }, opts || {}));
-    if(!r.ok) throw 0;
-    return await r.json();
-  }
-
-  async function init(){
-    if(!navigator.onLine){ elTotal.textContent = elOnline.textContent = '—'; return; }
-
-    try{
-      const t = await jget('/visits');         // incrementa e retorna total
-      elTotal.textContent = fmt(t.value||0);
-    }catch(e){ elTotal.textContent = '—'; }
-
-    try{
-      await jget('/online/in', { method:'POST', keepalive:true });
-      const on = await jget('/online');
-      elOnline.textContent = fmt(on.value||0);
-    }catch(e){ elOnline.textContent = '—'; }
-
-    setInterval(async ()=>{
-      if(!navigator.onLine) return;
-      try{
-        const on = await jget('/online');
-        elOnline.textContent = fmt(on.value||0);
-      }catch(e){}
-    }, 15000);
-  }
-
-  window.addEventListener('beforeunload', ()=>{
-    try{
-      navigator.sendBeacon(API + '/online/out');
-    }catch(e){}
-  });
-  window.addEventListener('online', init);
-  window.addEventListener('load', init);
-})();
-</script>
+  </div></footer>
