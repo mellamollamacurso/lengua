@@ -65,13 +65,15 @@ layout: null
     #llama-stats .val{ min-width:18px; display:inline-block; text-align:right; font-variant-numeric: tabular-nums; }
 
     /* Scrollbar (wide, trilho preto, polegar/setas #d799c4) */
-    ::-webkit-scrollbar       { width:18px; height:18px; }
-    ::-webkit-scrollbar-track { background:#000000; }
-    ::-webkit-scrollbar-thumb {
-      background:#000000; border:3px solid #000000; border-radius:12px;
-    }
-    ::-webkit-scrollbar-button { background:#000000; height:18px; width:18px; }
-    * { scrollbar-width: auto; scrollbar-color: #d799c4 #000000; }
+   ::-webkit-scrollbar       { width:18px; height:18px; }
+::-webkit-scrollbar-track { background:#000; }              /* trilho preto */
+::-webkit-scrollbar-thumb {
+  background:#7c3aed;                                       /* polegar roxo */
+  border:3px solid #000;                                    /* borda preta */
+  border-radius:12px;
+}
+::-webkit-scrollbar-button { background:#7c3aed; height:18px; width:18px; } /* setas roxas */
+* { scrollbar-width: auto; scrollbar-color: #7c3aed #000; } /* Firefox: thumb roxo, trilho preto */
 
     /* ===== Menu (como no seu) ===== */
     :root{
