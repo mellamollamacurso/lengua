@@ -1,15 +1,13 @@
+# diz ao Jekyll onde estão os arquivos especiais
+layouts_dir: plantillas
+includes_dir: partes
+
 title: Me Llamo Llama
 markdown: kramdown
-
-# plugins suportados pelo GitHub Pages
 plugins:
   - jekyll-seo-tag
   - jekyll-sitemap
-
-# não tente usar temas remotos nem plugins fora da whitelist
 theme: null
-
 exclude:
   - node_modules
   - vendor
-  - README.md
