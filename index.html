@@ -3,7 +3,6 @@ layout: predefinido
 title: Inicio
 ---
 
-
 <style>
   *{box-sizing:border-box;margin:0;padding:0}
   html,body{height:100%}
@@ -33,20 +32,7 @@ title: Inicio
     min-height:calc(565px + 280px + 50px + 140px);
   }
 
-  .top-bar{ position:fixed; inset:0 0 auto 0; height:70px; background:#0b0b0b; z-index:9999; }
-  .logo{ position:fixed; top:10px; left:16px; width:110px; z-index:10000; }
-
-  .menu-slot{ position:fixed; top:6px; right:90px; height:58px; z-index:9999; display:flex; align-items:center; }
-
-  .account{ position:fixed; top:6px; right:16px; height:58px; z-index:10001; display:flex; flex-direction:column; align-items:center; gap:4px; }
-  .account .avatar{ width:38px; height:38px; border:3px solid #fff; border-radius:50%; background:transparent; }
-  .account .acc-label{ font-family:"TTLakesNeueTrialLight","TTLakesNeueTrialCompressedBold", Arial, sans-serif; color:#fff; font-size:10pt; line-height:1; text-transform:lowercase; }
-
-  .hero{ position:relative; padding-top:70px; }
-
-  .title-img{ position:absolute; top:80px; left:50px; width:auto; height:auto; max-width:none; z-index:500; }
-
-  .btn-orange{
+    .btn-orange{
     position:absolute; left:55px; top:415px;
     width:174px; height:63px;
     background:#ef7920; border:3px solid #000; border-radius:20px;
@@ -67,23 +53,6 @@ title: Inicio
   .info-body{ position:absolute; left:50%; transform:translateX(-50%); top:140px; width:150px; }
   .info-title{ font-size:28px; line-height:1; margin:0 0 8px 0; }
   .info-text{ font-family:"TTLakesNeueTrialLight","TTLakesNeueTrialCompressedBold", Arial, sans-serif; font-size:16px; line-height:1.05; }
-
-  .footer-strip{
-    position:absolute; left:0; right:0; top:calc(565px + 280px + 50px);
-    height:140px; background:#0b0b0b; z-index:200;
-    display:flex; align-items:center; gap:24px; padding:0 28px;
-  }
-  .footer-strip img.avatar{ width:120px; height:auto; flex:0 0 auto; }
-
-  .footer-texts{ color:#fff; font-family:"TTLakesNeueTrialLight","TTLakesNeueTrialCompressedBold", Arial, sans-serif; }
-  .footer-line1{ font-size:15pt; margin-bottom:2px; }
-  .footer-sub{ font-size:7pt; margin-bottom:8px; opacity:0.95; }
-  .footer-line2{ display:flex; align-items:baseline; gap:8px; }
-  .course-name{ font-size:15pt; }
-  .version-badge{ font-size:7pt; color:#fff; opacity:0.95; }
-  .footer-legal{ font-size:7pt; opacity:0.95; margin-top:3px; }
-  .footer-right{ margin-left:auto; text-align:right; color:#fff; font-family:"TTLakesNeueTrialLight","TTLakesNeueTrialCompressedBold", Arial, sans-serif; }
-  .metric{ font-size:9pt; line-height:1.2; opacity:0.95; }
 
   ::-webkit-scrollbar       { width:12px; height:12px; }
   ::-webkit-scrollbar-track { background:#f7cb44; }
@@ -136,54 +105,6 @@ title: Inicio
   }
 </style>
 
-<div class="top-bar" aria-hidden="true"></div>
-  <img class="logo" src="https://mellamollamacurso.github.io/lengua/inicial/a03.gif" alt="Cultura Hispánica" />
-
-  <div class="menu-slot">
-    <nav class="navbar" id="navbar">
-      <ul class="nav-list" id="navList">
-        <li class="nav-item has-dropdown" data-idx="0">
-          <a class="nav-link" href="#">Inicio <span class="caret"></span></a>
-          <div class="popover" role="menu"><ul>
-              <li><a href="#" role="menuitem">Conoce el curso</a></li>
-              <li><a href="#" role="menuitem">Eventos</a></li>
-              <li><a href="#" role="menuitem">Materiales</a></li>
-          </ul></div>
-        </li>
-        <li class="nav-item has-dropdown" data-idx="1">
-          <a class="nav-link" href="#">Alumno <span class="caret"></span></a>
-          <div class="popover" role="menu"><ul>
-              <li><a href="#" role="menuitem">Ejercicios</a></li>
-              <li><a href="#" role="menuitem">Pruebas</a></li>
-              <li><a href="#" role="menuitem">Materiales</a></li>
-          </ul></div>
-        </li>
-        <li class="nav-item has-dropdown" data-idx="2">
-          <a class="nav-link" href="#">Profesor <span class="caret"></span></a>
-          <div class="popover" role="menu"><ul>
-              <li><a href="#" role="menuitem">Libros</a></li>
-              <li><a href="#" role="menuitem">Guías</a></li>
-              <li><a href="#" role="menuitem">Asistencia</a></li>
-          </ul></div>
-        </li>
-        <li class="nav-item has-dropdown active" data-idx="3">
-          <a class="nav-link" href="#">Contacto <span class="caret"></span></a>
-          <div class="popover" role="menu"><ul>
-              <li><a href="#" role="menuitem">Agendar citas</a></li>
-              <li><a href="#" role="menuitem">Dudas</a></li>
-              <li><a href="#" role="menuitem">Test de nivel</a></li>
-          </ul></div>
-        </li>
-      </ul>
-      <span class="nav-underline" id="navUnderline"></span>
-    </nav>
-  </div>
-
-  <div class="account" aria-label="acceder">
-    <div class="avatar" aria-hidden="true"></div>
-    <div class="acc-label">acceder</div>
-  </div>
-
   <img class="title-img" src="https://mellamollamacurso.github.io/lengua/inicial/a04.png" alt="me llamo llama" />
 
   <main class="hero">
@@ -192,34 +113,7 @@ title: Inicio
       <div class="pink-block" aria-hidden="true"></div>
       <div class="info-body">
         <h3 class="info-title">¡Entérate!</h3>
-        <p class="info-text">Un curso hecho por profesores enamoradísimos de la lengua y para los más enamorados.</p>
+        <p class="info-text">Un curso hecho por es enamoradísimos de la lengua y para los más enamorados.</p>
       </div>
     </section>
   </main>
-
-  <footer class="footer-strip">
-    <img class="avatar" src="https://mellamollamacurso.github.io/lengua/inicial/a05.png" alt="avatar del profe" />
-    <div class="footer-texts">
-      <div class="footer-line1">Profe : Álex Barges</div>
-      <div class="footer-sub">profesor y creador</div>
-      <div class="footer-line2">
-        <div class="course-name">Curso Cultura Hispánica</div>
-        <div class="version-badge">v0.25</div>
-      </div>
-      <div class="footer-legal">todos los derechos reservados</div>
-    </div>
-    <div class="footer-right">
-      <div class="metric">total de llamas: <span id="count-total">—</span></div>
-      <div class="metric">llamas conectadas: <span id="count-online">—</span></div>
-    </div>
-  </footer>
-
-<script>
-/* Menu underline logic */
-const nav=document.getElementById('navbar'),ul=document.getElementById('navList'),underline=document.getElementById('navUnderline');
-function placeUnderlineTo(li,instant=false){const c=nav.getBoundingClientRect(),r=li.getBoundingClientRect(),left=r.left-c.left,width=r.width;if(instant){underline.style.transition='none';underline.style.left=left+'px';underline.style.width=width+'px';void underline.offsetWidth;underline.style.transition='left .15s,width .15s';return}const a=ul.querySelector('.nav-item.active')||li,fr=a.getBoundingClientRect(),fl=fr.left-c.left,frt=fl+fr.width,tl=left,tr=left+width;underline.style.transition='left .15s,width .15s';if(tl>fl){underline.style.left=fl+'px';underline.style.width=(tr-fl)+'px';setTimeout(()=>{underline.style.left=tl+'px';underline.style.width=width+'px'},170)}else{underline.style.left=tl+'px';underline.style.width=(frt-tl)+'px';setTimeout(()=>{underline.style.width=width+'px'},170)}}
-function closeAll(){ul.querySelectorAll('.has-dropdown.open').forEach(li=>li.classList.remove('open'))}
-ul.addEventListener('click',e=>{const l=e.target.closest('.nav-link');if(!l)return;e.preventDefault();const li=l.closest('.nav-item');if(li.classList.contains('has-dropdown')){const open=li.classList.toggle('open');ul.querySelectorAll('.has-dropdown').forEach(o=>{if(o!==li)o.classList.remove('open')});ul.querySelectorAll('.nav-item').forEach(it=>it.classList.toggle('active',it===li));placeUnderlineTo(li);return}else{closeAll()}ul.querySelectorAll('.nav-item').forEach(it=>it.classList.toggle('active',it===li));placeUnderlineTo(li)});
-document.addEventListener('click',e=>{if(!nav.contains(e.target)) closeAll()});document.addEventListener('keydown',e=>{if(e.key==='Escape') closeAll()});
-window.addEventListener('load',()=>{placeUnderlineTo(ul.querySelector('.nav-item.active')||ul.querySelector('.nav-item'),true)});window.addEventListener('resize',()=>{placeUnderlineTo(ul.querySelector('.nav-item.active')||ul.querySelector('.nav-item'),true)});
-</script>
