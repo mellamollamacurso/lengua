@@ -2,13 +2,8 @@
 layout: predefinido
 title: Inicio
 ---
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>portal — me llamo llama</title>
-<link rel="icon" href="favicon.ico" sizes="any">
+
+
 <style>
   *{box-sizing:border-box;margin:0;padding:0}
   html,body{height:100%}
@@ -140,15 +135,8 @@ title: Inicio
     .nav-list{ white-space:nowrap; }
   }
 </style>
-<meta http-equiv="Content-Security-Policy"
-      content="default-src 'self' https: data: 'unsafe-inline' 'unsafe-eval';
-               img-src 'self' https: data:;
-               style-src 'self' https: 'unsafe-inline';
-               script-src 'self' https: 'unsafe-inline' 'unsafe-eval';
-               connect-src 'self' https://mellamollama-contadores.mellamollamacurso.workers.dev;">
-</head>
-<body>
-  <div class="top-bar" aria-hidden="true"></div>
+
+<div class="top-bar" aria-hidden="true"></div>
   <img class="logo" src="https://mellamollamacurso.github.io/lengua/inicial/a03.gif" alt="Cultura Hispánica" />
 
   <div class="menu-slot">
@@ -235,5 +223,3 @@ ul.addEventListener('click',e=>{const l=e.target.closest('.nav-link');if(!l)retu
 document.addEventListener('click',e=>{if(!nav.contains(e.target)) closeAll()});document.addEventListener('keydown',e=>{if(e.key==='Escape') closeAll()});
 window.addEventListener('load',()=>{placeUnderlineTo(ul.querySelector('.nav-item.active')||ul.querySelector('.nav-item'),true)});window.addEventListener('resize',()=>{placeUnderlineTo(ul.querySelector('.nav-item.active')||ul.querySelector('.nav-item'),true)});
 </script>
-</body>
-</html>
