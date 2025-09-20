@@ -1,3 +1,15 @@
-# _config.yml — directorios personalizados
-includes_dir: partes
-layouts_dir: plantillas
+title: Me Llamo Llama
+markdown: kramdown
+
+# plugins suportados pelo GitHub Pages
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+# não tente usar temas remotos nem plugins fora da whitelist
+theme: null
+
+exclude:
+  - node_modules
+  - vendor
+  - README.md
