@@ -136,16 +136,12 @@
     .nav-list{ white-space:nowrap; }
   }
 </style>
-
-<style>
-/* Apenas cores da barra de rolagem — sem mudar largura ou mais nada */
-::-webkit-scrollbar-track { background:#000 !important; }
-::-webkit-scrollbar-thumb { background:#7c3aed !important; border-color:#000 !important; }
-::-webkit-scrollbar-button{ background:#7c3aed !important; }
-/* Firefox */
-* { scrollbar-color:#7c3aed #000; }
-</style>
-
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'self' https: data: 'unsafe-inline' 'unsafe-eval';
+               img-src 'self' https: data:;
+               style-src 'self' https: 'unsafe-inline';
+               script-src 'self' https: 'unsafe-inline' 'unsafe-eval';
+               connect-src 'self' https://mellamollama-contadores.mellamollamacurso.workers.dev;">
 </head>
 <body>
   <div class="top-bar" aria-hidden="true"></div>
