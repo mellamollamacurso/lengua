@@ -230,46 +230,6 @@ function closeAll(){ul.querySelectorAll('.has-dropdown.open').forEach(li=>li.cla
 ul.addEventListener('click',e=>{const l=e.target.closest('.nav-link');if(!l)return;e.preventDefault();const li=l.closest('.nav-item');if(li.classList.contains('has-dropdown')){const open=li.classList.toggle('open');ul.querySelectorAll('.has-dropdown').forEach(o=>{if(o!==li)o.classList.remove('open')});ul.querySelectorAll('.nav-item').forEach(it=>it.classList.toggle('active',it===li));placeUnderlineTo(li);return}else{closeAll()}ul.querySelectorAll('.nav-item').forEach(it=>it.classList.toggle('active',it===li));placeUnderlineTo(li)});
 document.addEventListener('click',e=>{if(!nav.contains(e.target)) closeAll()});document.addEventListener('keydown',e=>{if(e.key==='Escape') closeAll()});
 window.addEventListener('load',()=>{placeUnderlineTo(ul.querySelector('.nav-item.active')||ul.querySelector('.nav-item'),true)});window.addEventListener('resize',()=>{placeUnderlineTo(ul.querySelector('.nav-item.active')||ul.querySelector('.nav-item'),true)});
-
-/* Counters with offline guard */
-const NS = 'mellamollamacurso_github_io_portal';
-const elTotal = document.getElementById('count-total');
-const elOnline = document.getElementById('count-online');
-
-function setPlaceholders(){ elTotal.textContent='—'; elOnline.textContent='—'; }
-
-async function updateTotal() {
-  try {
-    const r = await fetch(`https://api.countapi.xyz/hit/${NS}/visits`);
-    const d = await r.json();
-    elTotal.textContent = (d.value||0).toLocaleString();
-  } catch(e) { setPlaceholders(); }
-}
-async function ensureOnlineKey() {
-  try { await fetch(`https://api.countapi.xyz/create/${NS}/online?value=0`); } catch(e) {}
-}
-async function refreshOnline() {
-  try {
-    const r = await fetch(`https://api.countapi.xyz/get/${NS}/online`);
-    const d = await r.json();
-    elOnline.textContent = (d.value||0).toLocaleString();
-  } catch(e) { setPlaceholders(); }
-}
-async function incOnline() { try { await fetch(`https://api.countapi.xyz/update/${NS}/online?amount=1`); } catch(e) {} }
-function decOnline() { try { navigator.sendBeacon(`https://api.countapi.xyz/update/${NS}}/online?amount=-1`); } catch(e) {} }
-
-function initCounters(){
-  if(!navigator.onLine){ setPlaceholders(); return; }
-  ensureOnlineKey();
-  updateTotal();
-  incOnline().then(refreshOnline);
-  setInterval(()=>{ if(navigator.onLine) refreshOnline(); }, 15000);
-}
-
-window.addEventListener('load', initCounters);
-window.addEventListener('online', initCounters);
-window.addEventListener('offline', setPlaceholders);
-window.addEventListener('beforeunload', decOnline);
 </script>
 </body>
 </html>
