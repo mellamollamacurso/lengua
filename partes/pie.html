@@ -1,29 +1,9 @@
-<footer id="pie" class="pie" role="contentinfo" aria-label="Rodapé">
-  <style>
-    /* Estilos específicos do PIE (escopados ao id #pie) */
-    #pie.pie{background:#0f0f10;color:#fff}
-    #pie .pie__wrap{
-      max-width:1200px;margin:0 auto;
-      padding:24px 16px;
-      display:grid;
-      grid-template-columns:120px 1fr; /* avatar à esquerda, textos à direita */
-      align-items:center;gap:16px
-    }
-    #pie .pie__img img{display:block;width:120px;height:auto}
-    #pie .pie__texto{display:grid;gap:6px}
-    #pie .pie__line{margin:0;line-height:1.25}
-    /* Responsivo */
-    @media (max-width:640px){
-      #pie .pie__wrap{grid-template-columns:80px 1fr}
-      #pie .pie__img img{width:80px}
-    }
-  </style>
 
+<footer id="pie" class="pie" role="contentinfo" aria-label="Rodapé">
   <div class="pie__wrap">
     <figure class="pie__img">
-      <img src="{{ '/inicial/a05.png' | relative_url }}" alt="Álex Barges">
+      <img src="inicial/a05.png" alt="Álex Barges">
     </figure>
-
     <div class="pie__texto">
       <p class="pie__line">Profe : Álex Barges</p>
       <p class="pie__line">profesor y creador</p>
