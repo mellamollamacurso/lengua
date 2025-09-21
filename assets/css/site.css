@@ -1,5 +1,4 @@
-
-  *{box-sizing:border-box;margin:0;padding:0}
+*{box-sizing:border-box;margin:0;padding:0}
   html,body{height:100%}
 
   /* Fonts embutidas (se não carregarem, o site usa fallback) */
@@ -16,7 +15,7 @@
 
   body{
     font-family:"TTLakesNeueTrialCompressedBold", Arial, sans-serif;
-    background-image:url('{{ "/https://mellamollamacurso.github.io/lengua/inicial/a00.png" | relative_url }}');
+    background-image:url('https://mellamollamacurso.github.io/lengua/inicial/a00.png');
     background-repeat:repeat-x;
     background-position:0 0;
     background-size:auto;
@@ -128,53 +127,62 @@
     .menu-slot{ right:78px; max-width:60%; overflow-x:auto; -webkit-overflow-scrolling:touch; }
     .nav-list{ white-space:nowrap; }
   }
-/* ====== MENU (cabeza) ====== */
 
-/* barra preta do topo */
+/* === PATCH: menu+footer+layout === */
+/* =========================
+   LAYOUT GERAL (footer no fim)
+   ========================= */
+html, body{
+  height:100%;
+  display:flex;
+  flex-direction:column;
+}
+#contenido{
+  flex:1 0 auto;
+}
+#pie{
+  flex-shrink:0;
+  background:#0f0f10;
+  color:#fff;
+}
+
+/* =========================
+   CABEÇALHO / MENU (cabeza)
+   ========================= */
 .top-bar{
   height:40px;
   background:#0f0f10;
 }
-
-/* logo */
 .logo{
-  position:absolute;           /* não empurra o menu */
+  position:absolute;
   left:16px; top:6px;
   height:28px; width:auto;
   display:block;
   z-index:20;
 }
-
-/* faixa onde vive o menu */
 .menu-slot{
   position:relative;
   z-index:10;
-  background:#0f0f10;          /* mesma cor da barra */
+  background:#0f0f10;
   border-bottom:1px solid #111;
 }
-
-/* contêiner do menu */
 .navbar{
   max-width:1200px;
   margin:0 auto;
   padding:8px 16px 10px;
   display:flex;
   align-items:center;
+  position:relative;
 }
-
-/* lista horizontal */
 .nav-list{
   list-style:none;
   margin:0; padding:0;
   display:flex; gap:16px;
 }
-
-/* item e link */
 .nav-item{ position:relative; }
 .nav-link{
   color:#fff;
   text-decoration:none;
-  font-family:'zag', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   font-weight:600;
   font-size:14px;
   padding:6px 10px;
@@ -185,8 +193,6 @@
 .nav-item:focus-within > .nav-link{
   background:#1e1e1e;
 }
-
-/* caret ao lado do texto */
 .caret{
   width:0; height:0;
   border-left:4px solid transparent;
@@ -194,8 +200,6 @@
   border-top:5px solid #fff;
   transform:translateY(1px);
 }
-
-/* popover/dropdown */
 .popover{
   position:absolute;
   left:0; top:100%;
@@ -216,13 +220,8 @@
   font-size:14px;
 }
 .popover a:hover{ background:#1a1a1a; }
-
-/* abre no hover e no focus (acessível por teclado) */
 .nav-item:hover .popover,
 .nav-item:focus-within .popover{ display:block; }
-
-/* sublinhado animado sob o menu principal */
-.navbar{ position:relative; }
 .nav-underline{
   position:absolute;
   left:16px; bottom:0;
@@ -230,8 +229,6 @@
   background:#ffd54d;
   transition:transform .25s ease, width .25s ease;
 }
-
-/* bloco "account" no canto direito */
 .account{
   position:absolute; right:16px; top:8px;
   display:flex; align-items:center; gap:8px;
@@ -244,6 +241,32 @@
 .acc-label{
   font-size:12px; text-transform:uppercase; letter-spacing:.06em;
 }
-
-/* garantir que o cabeçalho fique acima do conteúdo */
 .menu-slot, .navbar, .top-bar { z-index: 10; }
+
+/* =========================
+   RODAPÉ (pie)
+   ========================= */
+#pie .pie__wrap{
+  max-width:1200px;
+  margin:0 auto;
+  padding:24px 16px;
+  display:grid;
+  grid-template-columns:120px 1fr;
+  align-items:center;
+  gap:16px;
+}
+#pie .pie__img img{
+  display:block;
+  width:120px; height:auto;
+}
+#pie .pie__texto{
+  display:grid; gap:6px;
+  color:#fff;
+}
+#pie .pie__line{
+  margin:0; line-height:1.25;
+}
+@media (max-width:640px){
+  #pie .pie__wrap{ grid-template-columns:80px 1fr; }
+  #pie .pie__img img{ width:80px; }
+}
