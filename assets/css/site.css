@@ -264,3 +264,43 @@ body {
 .info-card, .pink-block, .title-img, .hero .decor, .hero .fig {
   z-index: 0 !important;       /* ficam atrás do #pie (z-index:1) */
 }
+
+
+
+/* ===== FINAL OVERRIDES: reliable sticky footer + menu/header spacing ===== */
+:root { --header-h: 70px; } /* adjust if your .top-bar height changes */
+
+/* 1) Flex column layout for the whole page */
+html, body { height: 100%; }
+body {
+  display: flex !important;
+  flex-direction: column !important;
+  min-height: 100vh !important;   /* ensures at least viewport height */
+}
+
+/* 2) Main content grows to fill space (pushes footer down) */
+#contenido {
+  flex: 1 0 auto !important;
+  min-height: 0 !important;
+  padding-top: var(--header-h) !important;  /* avoid header overlap */
+  position: relative !important;
+  z-index: 0 !important;
+}
+
+/* 3) Footer at the end of the flow (not fixed), above any absolutely-positioned cards */
+#pie {
+  position: relative !important;
+  flex: 0 0 auto !important;
+  margin-top: 0 !important;
+  z-index: 1 !important;
+  background: #0f0f10 !important;
+  color: #fff !important;
+}
+
+/* 4) Prevent "white card" and decorative blocks from overlapping the footer */
+.info-card, .pink-block, .title-img, .hero .decor, .hero .fig {
+  z-index: 0 !important;
+}
+
+/* 5) Remove any old reserved space hacks if present */
+#contenido::after { content: none !important; }
