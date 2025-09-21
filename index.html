@@ -84,19 +84,17 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 
 
-  <!-- MIÓLO: hero refatorado em grid (ocupa altura real) -->
-  <main id="contenido">
-    <section class="hero">
-      <img class="title-img" src="inicial/a04.png" alt="Título do curso">
-
-      <div class="info-card">
-        <div class="pink-block"></div>
-        <h2 class="info-title">Título do card</h2>
-        <p class="info-text">Texto de exemplo dentro da caixa branca.</p>
-        <button class="btn-orange">Começar</button>
-      </div>
-    </section>
-  </main>
+<main id="contenido">
+  <section class="hero">
+    <img class="title-img" src="{{ '/inicial/a04.png' | relative_url }}" alt="Título">
+    <button class="btn-orange">¡Confiere!</button>
+    <div class="info-card">
+      <div class="pink-block"></div>
+      <h2 class="info-title">¡Entérate!</h2>
+      <p class="info-text">Um curso feito por professores…</p>
+    </div>
+  </section>
+</main>
 
   <!-- PIE (inline para teste offline) -->
   
