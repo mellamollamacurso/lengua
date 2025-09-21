@@ -231,53 +231,36 @@ body {
   #pie .pie__wrap{ grid-template-columns:80px 1fr; }
   #pie .pie__img img{ width:80px; }
 }
-/* ===== CORREÇÃO FINAL: footer no fim + nada sobre ele ===== */
+/* ==== STICKY FOOTER CORRETO (não fixo, sem altura mágica) ==== */
+:root { --header-h: 70px; }  /* a altura real da .top-bar fixa */
 
-/* Alturas do cabeçalho e do rodapé (ajuste se o seu rodapé for mais alto) */
-:root{
-  --header-h: 70px;   /* sua .top-bar */
-  --footer-h: 220px;  /* altura total aproximada do pie (img + textos + paddings) */
-}
-
-/* Layout: body em coluna; conteúdo preenche a janela menos header+footer */
+/* 1) O body vira coluna em tela cheia */
 html, body { height: 100%; }
-body{
+body {
   display: flex;
   flex-direction: column;
-  min-height: 0 !important;  /* neutraliza min-heights antigos */
+  min-height: 100vh;          /* garante altura de viewport */
 }
 
-/* O miolo precisa empurrar o footer.
-   - padding-top: evita que o header fixo tape o conteúdo;
-   - padding-bottom: reserva espaço p/ o rodapé;
-   - min-height: garante que, mesmo sem conteúdo, o footer fique no fim. */
-#contenido{
-  position: relative;
-  z-index: 1;
-  flex: 1 0 auto;
-  padding-top: var(--header-h);
-  padding-bottom: var(--footer-h);
-  min-height: calc(100vh - var(--header-h) - var(--footer-h));
+/* 2) O miolo ocupa o espaço restante (empurra o footer) */
+#contenido {
+  flex: 1 0 auto;             /* cresce para preencher */
+  padding-top: var(--header-h);/* evita que o topo fique sob o header fixo */
+  min-height: 0;               /* não herda min-height antigos */
+  position: relative;          /* contexto pros absolutes internos */
+  z-index: 0;                  /* abaixo do footer na pilha */
 }
 
-/* Rodapé sempre depois do conteúdo e acima na pilha (nada por cima dele) */
-#pie{
-  position: relative;
-  z-index: 9999;       /* garante que nada do miolo sobreponha */
-  flex-shrink: 0;
+/* 3) O rodapé fica no fim do fluxo (sem position: fixed) */
+#pie {
+  position: relative;          /* mantém no fluxo normal */
+  z-index: 1;                  /* acima de cards absolutos do miolo */
+  margin-top: 0;               /* zera qualquer margem que puxe pra cima */
   background: #0f0f10;
   color: #fff;
 }
 
-/* A sua “caixa branca” (card) estava com z-index alto e atravessava tudo.
-   Aqui rebaixamos o z-index para ficar SEMPRE abaixo do rodapé. */
-.info-card{ z-index: 0 !important; }     /* antes estava alto (ex.: 600) */
-.pink-block{ z-index: 0 !important; }    /* blocos decorativos junto do card */
-
-/* (opcional) Se houver QUALQUER outro bloco absoluto no miolo, mantenha abaixo do footer */
-.hero, .title-img, .info-text { z-index: 0 !important; }
-
-/* Responsivo: se o rodapé crescer em telas pequenas, aumente a reserva */
-@media (max-width: 640px){
-  :root{ --footer-h: 260px; }  /* ajuste fino se o texto do pie quebrar muitas linhas */
+/* 4) Qualquer bloco absoluto do miolo NÃO deve sobrepor o footer */
+.info-card, .pink-block, .title-img, .hero .decor, .hero .fig {
+  z-index: 0 !important;       /* ficam atrás do #pie (z-index:1) */
 }
