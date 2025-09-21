@@ -1,13 +1,3 @@
-# diz ao Jekyll onde estão os arquivos especiais
-layouts_dir: plantillas
 includes_dir: partes
-
+layouts_dir: plantillas
 title: Me Llamo Llama
-markdown: kramdown
-plugins:
-  - jekyll-seo-tag
-  - jekyll-sitemap
-theme: null
-exclude:
-  - node_modules
-  - vendor
