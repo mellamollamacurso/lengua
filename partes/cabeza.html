@@ -1,6 +1,5 @@
-
 <div class="top-bar" aria-hidden="true"></div>
-<img class="logo" src="inicial/a03.gif" alt="Cultura Hispánica" />
+<img class="logo" src="{{ '/inicial/a03.gif' | relative_url }}" alt="Cultura Hispánica" />
 <div class="menu-slot">
   <nav class="navbar" id="navbar">
     <ul class="nav-list" id="navList">
@@ -28,7 +27,7 @@
           <li><a href="#" role="menuitem">Asistencia</a></li>
         </ul></div>
       </li>
-      <li class="nav-item has-dropdown active" data-idx="3">
+      <li class="nav-item has-dropdown" data-idx="3">
         <a class="nav-link" href="#">Contacto <span class="caret"></span></a>
         <div class="popover" role="menu"><ul>
           <li><a href="#" role="menuitem">Agendar citas</a></li>
@@ -44,30 +43,12 @@
   <div class="avatar" aria-hidden="true"></div>
   <div class="acc-label">acceder</div>
 </div>
+
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-  const ul = document.getElementById('navList');
-  const underline = document.getElementById('navUnderline');
-  if (ul && underline) {
-    function placeUnderlineTo(li){
-      const r = li.getBoundingClientRect();
-      const pr = ul.getBoundingClientRect();
-      underline.style.left = (r.left - pr.left + 8) + 'px';
-      underline.style.width = Math.max(0, r.width - 16) + 'px';
-    }
-    const active = ul.querySelector('.nav-item.active') || ul.querySelector('.nav-item');
-    if (active) placeUnderlineTo(active);
-    ul.querySelectorAll('.nav-item').forEach(li => {
-      li.addEventListener('mouseenter', () => placeUnderlineTo(li));
-      li.addEventListener('focusin', () => placeUnderlineTo(li));
-    });
-    ul.addEventListener('mouseleave', () => active && placeUnderlineTo(active));
-  }
-  document.querySelectorAll('.has-dropdown').forEach(li => {
-    li.addEventListener('mouseenter', () => li.classList.add('open'));
-    li.addEventListener('mouseleave', () => li.classList.remove('open'));
-    const a = li.querySelector('.nav-link');
-    if (a) a.addEventListener('click', (e) => e.preventDefault());
-  });
-});
+const nav=document.getElementById('navbar'),ul=document.getElementById('navList'),underline=document.getElementById('navUnderline');
+function placeUnderlineTo(li,instant=false){const c=nav.getBoundingClientRect(),r=li.getBoundingClientRect(),left=r.left-c.left,width=r.width;if(instant){underline.style.transition='none';underline.style.left=left+'px';underline.style.width=width+'px';void underline.offsetWidth;underline.style.transition='left .15s,width .15s';return}const a=ul.querySelector('.nav-item.active')||li,fr=a.getBoundingClientRect(),fl=fr.left-c.left,frt=fl+fr.width,tl=left,tr=left+width;underline.style.transition='left .15s,width .15s';if(tl>fl){underline.style.left=fl+'px';underline.style.width=(tr-fl)+'px';setTimeout(()=>{underline.style.left=tl+'px';underline.style.width=width+'px'},170)}else{underline.style.left=tl+'px';underline.style.width=(frt-tl)+'px';setTimeout(()=>{underline.style.width=width+'px'},170)}}
+function closeAll(){ul.querySelectorAll('.has-dropdown.open').forEach(li=>li.classList.remove('open'))}
+ul.addEventListener('click',e=>{const l=e.target.closest('.nav-link');if(!l)return;e.preventDefault();const li=l.closest('.nav-item');if(li.classList.contains('has-dropdown')){const open=li.classList.toggle('open');ul.querySelectorAll('.has-dropdown').forEach(o=>{if(o!==li)o.classList.remove('open')});ul.querySelectorAll('.nav-item').forEach(it=>it.classList.toggle('active',it===li));placeUnderlineTo(li);return}else{closeAll()}ul.querySelectorAll('.nav-item').forEach(it=>it.classList.toggle('active',it===li));placeUnderlineTo(li)});
+document.addEventListener('click',e=>{if(!nav.contains(e.target)) closeAll()});document.addEventListener('keydown',e=>{if(e.key==='Escape') closeAll()});
+window.addEventListener('load',()=>{placeUnderlineTo(ul.querySelector('.nav-item.active')||ul.querySelector('.nav-item'),true)});window.addEventListener('resize',()=>{placeUnderlineTo(ul.querySelector('.nav-item.active')||ul.querySelector('.nav-item'),true)});
 </script>
