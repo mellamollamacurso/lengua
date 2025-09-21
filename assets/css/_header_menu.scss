@@ -1,159 +1,30 @@
-.top-bar{ position:fixed; inset:0 0 auto 0; height:70px; background:#0b0b0b; z-index:9999; }
-
-
-  .logo{ position:fixed; top:10px; left:16px; width:110px; z-index:10000; }
-
-
-
-  .menu-slot{ position:fixed; top:6px; right:90px; height:58px; z-index:9999; display:flex; align-items:center; }
-
-
-
-  .account{ position:fixed; top:6px; right:16px; height:58px; z-index:10001; display:flex; flex-direction:column; align-items:center; gap:4px; }
-
-
-  .account .avatar{ width:38px; height:38px; border:3px solid #fff; border-radius:50%; background:transparent; }
-
-
-  .account .acc-label{ font-family:"TTLakesNeueTrialLight","TTLakesNeueTrialCompressedBold", Arial, sans-serif; color:#fff; font-size:10pt; line-height:1; text-transform:lowercase; }
-
-
-  nav.navbar{position:relative;background:var(--nav-bg);color:var(--nav-fg);padding:0 8px;border-radius:0;border:var(--nav-border-w) solid var(--nav-border-c);width:var(--nav-width);}
-
-
-  .nav-list{display:flex;gap:var(--nav-gap);margin:0;padding:0;list-style:none;position:relative;align-items:center}
-
-
-  .nav-item{position:relative;min-height:var(--nav-item-h);display:flex;align-items:center;border-radius:var(--hover-radius);border:var(--active-border-w) solid transparent}
-
-
-  .nav-link{display:flex;align-items:center;gap:8px;color:var(--nav-fg);text-decoration:none;padding:10px 10px;line-height:1;
-            font-family:var(--menu-font-family);font-weight:var(--menu-font-weight);font-style:var(--menu-font-style);font-size:var(--menu-font-size)}
-
-
-  .nav-item:hover,.nav-item:focus-within{background:var(--hover-fill)}
-
-.nav-item:hover .nav-link{color:var(--hover-fg);font-weight:var(--hover-fw);font-style:var(--hover-fs)}
-
-
-  .nav-item.active{background:var(--active-bg);border-color:var(--active-border-c);border-width:var(--active-border-w)}
-
-
-  .nav-item.active .nav-link{color:var(--active-fg);font-weight:var(--active-fw);font-style:var(--active-fs)}
-
-
-  .nav-underline{position:absolute;left:8px;bottom:-2px;height:var(--underline-height);width:0;background:var(--underline-color);border-radius:2px;transition:left .15s,width .15s}
-
-
-  .has-dropdown{position:relative}
-
-.has-dropdown>.nav-link .caret{width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:6px solid currentColor;margin-left:6px;transition:transform .2s}
-
-
-  .has-dropdown.open>.nav-link .caret{transform:rotate(180deg)}
-
-
-  .popover{position:absolute;top:100%;left:50%;transform:translateX(-50%);margin-top:12px;background:var(--popover-bg);color:var(--popover-fg);border-radius:var(--radius);box-shadow:var(--shadow);min-width:220px;max-width:320px;padding:8px 0;border:var(--popover-border-w) solid var(--popover-border-c);display:none;z-index:10;
-           font-family:var(--dropdown-font-family);font-weight:var(--dropdown-font-weight);font-style:var(--dropdown-font-style)}
-
-
-  .has-dropdown.open .popover{display:block}
-
-.popover::before{content:"";position:absolute;top:-8px;left:50%;transform:translateX(-50%);border-left:8px solid transparent;border-right:8px solid transparent;border-bottom:8px solid var(--popover-bg)}
-
-
-  .popover ul{margin:0;padding:0;list-style:none}
-
-.popover li+li{border-top:var(--popover-sep-w) solid var(--popover-sep-c)}
-
-.popover a{display:block;padding:10px 14px;text-decoration:none;color:var(--popover-fg);font-size:var(--menu-font-size)}
-
-
-  .popover a:hover{background:var(--popover-hover-bg)}
-
-
-
-  @media (max-width:820px){
-    .menu-slot{ right:78px; max-width:60%; overflow-x:auto; -webkit-overflow-scrolling:touch; }
-
-
-    .nav-list{ white-space:nowrap; }
-
-
+/* Header + Menu */
 .top-bar{position:fixed;inset:0 0 auto 0;height:var(--header-h);background:#0b0b0b;z-index:9999}
-
-
 .logo{position:fixed;top:10px;left:16px;width:110px;height:auto;z-index:10000}
-
-
 .menu-slot{position:fixed;top:6px;right:90px;height:58px;display:flex;align-items:center;z-index:9999}
-
-
 .account{position:fixed;top:6px;right:16px;height:58px;z-index:10001;display:flex;flex-direction:column;align-items:center;gap:4px}
-
-
 .account .avatar{width:38px;height:38px;border:3px solid #fff;border-radius:50%;background:transparent}
-
-
 .account .acc-label{color:#fff;font:300 10pt/1 "TTLakesNeueTrialLight","TTLakesNeueTrialCompressedBold",Arial,sans-serif;text-transform:lowercase}
 
-
-
 .navbar{position:relative}
-
-
-.nav-list{display:flex;gap:var(--nav-gap);margin:0;padding:0;list-style:none;align-items:center}
-
-
-.nav-item{position:relative;min-height:var(--nav-item-h);display:flex;align-items:center;border-radius:var(--hover-radius)}
-
-
+.nav-list{display:flex;gap:6px;margin:0;padding:0;list-style:none;align-items:center}
+.nav-item{position:relative;min-height:35px;display:flex;align-items:center;border-radius:6px}
 .nav-link{display:flex;align-items:center;gap:8px;padding:10px 10px;text-decoration:none;color:#fff;
-  font-family:var(--menu-font-family);font-size:var(--menu-font-size);font-weight:400}
-
-
-.nav-item:hover,.nav-item:focus-within{background:var(--hover-fill)}
-
-
-.nav-item:hover .nav-link{color:var(--hover-fg)}
-
-
-.nav-item.active{background:var(--active-bg)}
-
-
-.nav-item.active .nav-link{color:var(--active-fg);font-weight:700}
-
-
+  font-family:"TTLakesNeueTrialLight","TTLakesNeueTrialCompressedBold",Arial,sans-serif;font-size:14px;font-weight:400}
+.nav-item:hover,.nav-item:focus-within{background:#f7cb44}
+.nav-item:hover .nav-link{color:#000}
+.nav-item.active{background:rgba(215,153,196,.25)}
+.nav-item.active .nav-link{color:#fff;font-weight:700}
 .caret{width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:6px solid currentColor;margin-left:6px;transition:transform .2s}
-
-
 .has-dropdown.open>.nav-link .caret{transform:rotate(180deg)}
-
-
-.nav-underline{position:absolute;left:8px;bottom:-2px;height:var(--underline-h);width:0;background:var(--underline-color);border-radius:2px;transition:left .15s,width .15s}
-
-
-.popover{position:absolute;top:100%;left:50%;transform:translateX(-50%);margin-top:12px;min-width:220px;max-width:320px;
-  background:var(--popover-bg);color:var(--popover-fg);border:3px solid #000;border-radius:12px;box-shadow:0 20px 0 0 rgba(0,0,0,1);padding:8px 0;display:none;z-index:10}
-
-
+.nav-underline{position:absolute;left:8px;bottom:-2px;height:5px;width:0;background:#d799c4;border-radius:2px;transition:left .15s,width .15s}
+.popover{position:absolute;top:100%;left:50%;transform:translateX(-50%);margin-top:12px;min-width:220px;max-width:320px;background:#d99cbd;color:#000;border:3px solid #000;border-radius:12px;box-shadow:0 20px 0 0 rgba(0,0,0,1);padding:8px 0;display:none;z-index:10}
 .has-dropdown.open .popover{display:block}
-
-
 .popover ul{margin:0;padding:0;list-style:none}
-
-
-.popover li+li{border-top:1px solid var(--popover-sep)}
-
-
-.popover a{display:block;padding:10px 14px;color:var(--popover-fg);text-decoration:none}
-
-
+.popover li+li{border-top:1px solid #7f5773}
+.popover a{display:block;padding:10px 14px;color:#000;text-decoration:none}
 .popover a:hover{background:#f7cb44}
-
-
 @media (max-width:820px){
   .menu-slot{right:78px;max-width:60%;overflow-x:auto;-webkit-overflow-scrolling:touch}
-
-
   .nav-list{white-space:nowrap}
+}

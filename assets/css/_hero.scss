@@ -1,68 +1,9 @@
-.hero{ position:relative; padding-top:70px; }
+/* HERO (grid) com proporções do index old */
+.hero{display:grid;justify-items:start;gap:24px;padding:40px}
 
+.title-img{max-width:100%;height:auto;display:block}
 
-  .title-img{ position:absolute; top:80px; left:50px; width:auto; height:auto; max-width:none; z-index:500; }
-
-
-  .btn-orange{
-    position:absolute; left:55px; top:415px;
-    width:174px; height:63px;
-    background:#ef7920; border:3px solid #000; border-radius:20px;
-    box-shadow:#000 0px 15px 0px 0px;
-    display:flex; align-items:center; justify-content:center;
-    color:#111; text-decoration:none; font-weight:700; font-size:20px;
-    z-index:600;
-  }
-
-  .info-card{
-    position:absolute; left:55px; top:565px;
-    width:180px; height:280px; background:#fff;
-    border:3px solid #000; border-radius:20px;
-    box-shadow:#000 0px 15px 0px 0px;
-    z-index:600; overflow:hidden;
-  }
-
-  .pink-block{ position:absolute; left:50%; transform:translateX(-50%); top:18px;
-               width:150px; height:100px; background:#d99ac1; border-radius:18px 18px 0 0; }
-
-  .info-title{ font-size:28px; line-height:1; margin:0 0 8px 0; }
-
-  .info-text{ font-family:"TTLakesNeueTrialLight","TTLakesNeueTrialCompressedBold", Arial, sans-serif; font-size:16px; line-height:1.05; }
-
-
-
-
-/* ===== HERO refatorado: grid layout ===== */
-.hero{
-  display:grid;
-  justify-items:start;
-  gap:24px;
-  padding:80px 40px; /* espaço interno já considera header */
-}
-
-.title-img{
-  max-width:100%;
-  height:auto;
-}
-
-.info-card{
-  background:#fff;
-  border:3px solid #000;
-  border-radius:20px;
-  box-shadow:#000 0 15px 0 0;
-  padding:24px;
-  display:grid;
-  gap:12px;
-  position:relative;
-}
-
-.pink-block{
-  width:100%;
-  height:100px;
-  background:#d99ac1;
-  border-radius:18px 18px 0 0;
-}
-
+/* Botão acima da caixa, centralizado */
 .btn-orange{
   justify-self:center;
   background:#ff9933;
@@ -72,3 +13,25 @@
   font-weight:700;
   cursor:pointer;
 }
+
+/* Caixa branca 180x280, bloco rosa 150x100 centralizado */
+.info-card{
+  width:180px; height:280px;
+  background:#fff;
+  border:3px solid #000;
+  border-radius:20px;
+  box-shadow:#000 0 15px 0 0;
+  padding:16px;
+  display:grid;
+  grid-template-rows:auto 1fr auto;
+  gap:10px;
+  position:relative;
+}
+.pink-block{
+  width:150px; height:100px;
+  background:#d99ac1;
+  border-radius:18px 18px 0 0;
+  justify-self:center;
+}
+.info-title{font-size:24px;line-height:1.1}
+.info-text{font-size:14px;line-height:1.3}
