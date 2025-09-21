@@ -128,3 +128,122 @@
     .menu-slot{ right:78px; max-width:60%; overflow-x:auto; -webkit-overflow-scrolling:touch; }
     .nav-list{ white-space:nowrap; }
   }
+/* ====== MENU (cabeza) ====== */
+
+/* barra preta do topo */
+.top-bar{
+  height:40px;
+  background:#0f0f10;
+}
+
+/* logo */
+.logo{
+  position:absolute;           /* não empurra o menu */
+  left:16px; top:6px;
+  height:28px; width:auto;
+  display:block;
+  z-index:20;
+}
+
+/* faixa onde vive o menu */
+.menu-slot{
+  position:relative;
+  z-index:10;
+  background:#0f0f10;          /* mesma cor da barra */
+  border-bottom:1px solid #111;
+}
+
+/* contêiner do menu */
+.navbar{
+  max-width:1200px;
+  margin:0 auto;
+  padding:8px 16px 10px;
+  display:flex;
+  align-items:center;
+}
+
+/* lista horizontal */
+.nav-list{
+  list-style:none;
+  margin:0; padding:0;
+  display:flex; gap:16px;
+}
+
+/* item e link */
+.nav-item{ position:relative; }
+.nav-link{
+  color:#fff;
+  text-decoration:none;
+  font-family:'zag', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-weight:600;
+  font-size:14px;
+  padding:6px 10px;
+  border-radius:6px;
+  display:inline-flex; align-items:center; gap:6px;
+}
+.nav-item:hover > .nav-link,
+.nav-item:focus-within > .nav-link{
+  background:#1e1e1e;
+}
+
+/* caret ao lado do texto */
+.caret{
+  width:0; height:0;
+  border-left:4px solid transparent;
+  border-right:4px solid transparent;
+  border-top:5px solid #fff;
+  transform:translateY(1px);
+}
+
+/* popover/dropdown */
+.popover{
+  position:absolute;
+  left:0; top:100%;
+  min-width:200px;
+  background:#0f0f10;
+  border:1px solid #222;
+  border-radius:10px;
+  padding:6px 0;
+  display:none;
+  box-shadow:0 8px 20px rgba(0,0,0,.35);
+}
+.popover ul{ list-style:none; margin:0; padding:0; }
+.popover a{
+  display:block;
+  color:#fff;
+  text-decoration:none;
+  padding:10px 12px;
+  font-size:14px;
+}
+.popover a:hover{ background:#1a1a1a; }
+
+/* abre no hover e no focus (acessível por teclado) */
+.nav-item:hover .popover,
+.nav-item:focus-within .popover{ display:block; }
+
+/* sublinhado animado sob o menu principal */
+.navbar{ position:relative; }
+.nav-underline{
+  position:absolute;
+  left:16px; bottom:0;
+  height:2px; width:0;
+  background:#ffd54d;
+  transition:transform .25s ease, width .25s ease;
+}
+
+/* bloco "account" no canto direito */
+.account{
+  position:absolute; right:16px; top:8px;
+  display:flex; align-items:center; gap:8px;
+  color:#fff;
+}
+.avatar{
+  width:24px; height:24px; border-radius:50%;
+  background:#ffd54d;
+}
+.acc-label{
+  font-size:12px; text-transform:uppercase; letter-spacing:.06em;
+}
+
+/* garantir que o cabeçalho fique acima do conteúdo */
+.menu-slot, .navbar, .top-bar { z-index: 10; }
