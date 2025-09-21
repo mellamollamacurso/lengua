@@ -265,42 +265,48 @@ body {
   z-index: 0 !important;       /* ficam atrás do #pie (z-index:1) */
 }
 
+/* === Rodapé só no fim da PÁGINA (não fixo à viewport) === */
+/* altura real do header fixo */
+:root{
+  --header-h: 70px;
+  /* altura até o fim do bloco absoluto mais “baixo” do hero.
+     calcule: top + height + margem. Ex.: 565px + 280px + 40px = 885px */
+  --hero-bottom: 900px; /* ajuste esse número ao seu layout */
+}
 
-
-/* ===== FINAL OVERRIDES: reliable sticky footer + menu/header spacing ===== */
-:root { --header-h: 70px; } /* adjust if your .top-bar height changes */
-
-/* 1) Flex column layout for the whole page */
-html, body { height: 100%; }
-body {
+/* 1) Página em coluna; o conteúdo empurra o footer */
+html, body { min-height: 100vh !important; height: auto !important; }
+body{
   display: flex !important;
   flex-direction: column !important;
-  min-height: 100vh !important;   /* ensures at least viewport height */
+  min-height: 100vh !important;
+  /* neutraliza min-heights antigos do seu CSS embutido */
+  min-height: auto !important;
 }
 
-/* 2) Main content grows to fill space (pushes footer down) */
-#contenido {
+/* 2) O miolo ocupa o espaço e ganha uma altura mínima suficiente
+      para “abraçar” os elementos absolutos do hero */
+#contenido{
   flex: 1 0 auto !important;
-  min-height: 0 !important;
-  padding-top: var(--header-h) !important;  /* avoid header overlap */
   position: relative !important;
   z-index: 0 !important;
+  padding-top: var(--header-h) !important;  /* não ficar sob o header fixo */
+  min-height: max( calc(100vh - var(--header-h)), var(--hero-bottom) ) !important;
+  /* nada de padding-bottom “chutado” aqui */
 }
 
-/* 3) Footer at the end of the flow (not fixed), above any absolutely-positioned cards */
-#pie {
-  position: relative !important;
+/* 3) Rodapé no fluxo normal, no final da página */
+#pie{
+  position: relative !important;  /* NÃO usar fixed */
   flex: 0 0 auto !important;
   margin-top: 0 !important;
-  z-index: 1 !important;
+  z-index: 1 !important;          /* acima dos cards absolutos */
   background: #0f0f10 !important;
   color: #fff !important;
 }
 
-/* 4) Prevent "white card" and decorative blocks from overlapping the footer */
-.info-card, .pink-block, .title-img, .hero .decor, .hero .fig {
+/* 4) Elementos absolutos do miolo nunca passam por cima do rodapé */
+.info-card, .pink-block, .title-img, .hero .decor, .hero .fig{
   z-index: 0 !important;
 }
 
-/* 5) Remove any old reserved space hacks if present */
-#contenido::after { content: none !important; }
