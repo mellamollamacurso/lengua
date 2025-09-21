@@ -1,4 +1,3 @@
-
 ---
 ---
 <!DOCTYPE html>
@@ -144,9 +143,12 @@
 </head>
 <body>
   {% include cabeza.html %}
-  {{ content }}
+  <main id="contenido" role="main">
+    {{ content }}
+  </main>
   {% include pie.html %}
   <script>
+
 /* Menu underline logic */
 const nav=document.getElementById('navbar'),ul=document.getElementById('navList'),underline=document.getElementById('navUnderline');
 function placeUnderlineTo(li,instant=false){const c=nav.getBoundingClientRect(),r=li.getBoundingClientRect(),left=r.left-c.left,width=r.width;if(instant){underline.style.transition='none';underline.style.left=left+'px';underline.style.width=width+'px';void underline.offsetWidth;underline.style.transition='left .15s,width .15s';return}const a=ul.querySelector('.nav-item.active')||li,fr=a.getBoundingClientRect(),fl=fr.left-c.left,frt=fl+fr.width,tl=left,tr=left+width;underline.style.transition='left .15s,width .15s';if(tl>fl){underline.style.left=fl+'px';underline.style.width=(tr-fl)+'px';setTimeout(()=>{underline.style.left=tl+'px';underline.style.width=width+'px'},170)}else{underline.style.left=tl+'px';underline.style.width=(frt-tl)+'px';setTimeout(()=>{underline.style.width=width+'px'},170)}}
@@ -194,6 +196,7 @@ window.addEventListener('load', initCounters);
 window.addEventListener('online', initCounters);
 window.addEventListener('offline', setPlaceholders);
 window.addEventListener('beforeunload', decOnline);
-</script>
+
+  </script>
 </body>
 </html>
