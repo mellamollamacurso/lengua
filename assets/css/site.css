@@ -180,3 +180,69 @@ nav.navbar.navfix{position:relative;background:var(--nav-bg);color:var(--nav-fg)
 .navbar.navfix .popover a:hover{background:var(--popover-hover-bg)}
 /* === MENU (NAMESPACED .navfix) END === */
 
+
+
+/* === AJUSTES FINOS === */
+.menu-slot{
+  position: fixed;
+  top: 6px;
+  left: 150px;
+  right: 90px;
+  height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* encostado no 'acceder' */
+  z-index: 9999;
+}
+.top-bar{ background:#000; }
+nav.navbar{
+  width: auto;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border-radius: 0;
+  color:#f1f1f1;
+}
+.nav-underline{
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 5px;
+  width: 0;
+  background:#d799c4;
+  border-radius:2px;
+  transition:left .15s,width .15s;
+}
+.nav-item.active .nav-link{ color:#d799c4; font-weight:700; }
+.nav-item:hover, .nav-item:focus-within{ background:#f7cb44; }
+.nav-item:hover .nav-link{ color:#000; font-weight:400; }
+
+/* CTA card com botão laranja acima da caixa */
+.cta-card{ position:relative; width:180px; }
+.btn-orange{
+  position:absolute;
+  left:54px;
+  top:-8px; /* 8px acima da caixa */
+  width:163px;
+  height:68px;
+  background:rgb(255,153,51);
+  border:4px solid #000;
+  border-radius:12px;
+  box-shadow:#000 0 10px 0 0;
+  cursor:pointer;
+  z-index:2;
+}
+.info-card{
+  position:relative;
+  width:180px;
+  height:280px;
+  background:#fff;
+  border:3px solid #000;
+  border-radius:20px;
+  box-shadow:#000 0 15px 0 0;
+  padding:16px;
+  display:grid;
+  grid-template-rows:auto 1fr auto;
+  gap:10px;
+  z-index:1;
+}
