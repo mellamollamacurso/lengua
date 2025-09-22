@@ -45,60 +45,90 @@
   <div class="acc-label">acceder</div>
 </div>
 
-<script>
-(function(){
-  var URL = "https://mellamollamacurso.github.io/lengua/guias/conoce_el_curso.html";
+<nav id="menu">
+  <ul>
+    <li class="item">Inicio
+      <ul class="submenu">
+        <li class="item">
+          <a href="{{ '/guias/conoce_el_curso.html' | relative_url }}" style="text-decoration:none;color:inherit">
+            Conoce el curso
+          </a>
+        </li>
+        <li class="item">
+          <a href="{{ '/guias/eventos.html' | relative_url }}" style="text-decoration:none;color:inherit">
+            Eventos
+          </a>
+        </li>
+        <li class="item">
+          <a href="{{ '/guias/materiales.html' | relative_url }}" style="text-decoration:none;color:inherit">
+            Materiales
+          </a>
+        </li>
+      </ul>
+    </li>
 
-  // normaliza texto (sem acento, minúsculas)
-  function norm(s){ return (s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().trim(); }
+    <li class="item">Alumno
+      <ul class="submenu">
+        <li class="item">
+          <a href="{{ '/guias/ejercicios.html' | relative_url }}" style="text-decoration:none;color:inherit">
+            Ejercicios
+          </a>
+        </li>
+        <li class="item">
+          <a href="{{ '/guias/pruebas.html' | relative_url }}" style="text-decoration:none;color:inherit">
+            Pruebas
+          </a>
+        </li>
+        <li class="item">
+          <a href="{{ '/guias/archivos.html' | relative_url }}" style="text-decoration:none;color:inherit">
+            Archivos
+          </a>
+        </li>
+      </ul>
+    </li>
 
-  function wrapAsLink(el, href){
-    var a = el.tagName==="A" ? el : el.querySelector("a");
-    if(!a){
-      a = document.createElement("a");
-      a.style.textDecoration = "none";
-      a.style.color = "inherit";
-      a.draggable = false;
-      while(el.firstChild){ a.appendChild(el.firstChild); }
-      el.appendChild(a);
-    }
-    a.href = href;
-    // se algum JS do menu “segura” o clique, garantimos a navegação:
-    a.addEventListener("click", function(e){ e.stopImmediatePropagation(); }, true);
-    return a;
-  }
+    <li class="item">Profesor
+      <ul class="submenu">
+        <li class="item">
+          <a href="{{ '/guias/libros.html' | relative_url }}" style="text-decoration:none;color:inherit">
+            Libros
+          </a>
+        </li>
+        <li class="item">
+          <a href="{{ '/guias/guias.html' | relative_url }}" style="text-decoration:none;color:inherit">
+            Guías
+          </a>
+        </li>
+        <li class="item">
+          <a href="{{ '/guias/asistencia.html' | relative_url }}" style="text-decoration:none;color:inherit">
+            Asistencia
+          </a>
+        </li>
+      </ul>
+    </li>
 
-  function apply(){
-    // procura contêiner do menu (tenta vários seletores comuns)
-    var roots = document.querySelectorAll("#menu, nav#menu, nav[role='navigation'], nav, .menu");
-    roots.forEach(function(root){
-      var nodes = root.querySelectorAll("a, .nav-item, li, .submenu *");
-      if(!nodes.length) nodes = root.querySelectorAll("*");
-      nodes.forEach(function(el){
-        var text = norm(el.textContent||"");
-        if(text === "conoce el curso"){
-          wrapAsLink(el, URL);
-        }
-      });
-    });
-  }
+    <li class="item">Contacto
+      <ul class="submenu">
+        <li class="item">
+          <a href="{{ '/guias/agendar_citas.html' | relative_url }}" style="text-decoration:none;color:inherit">
+            Agendar citas
+          </a>
+        </li>
+        <li class="item">
+          <a href="{{ '/guias/dudas.html' | relative_url }}" style="text-decoration:none;color:inherit">
+            Dudas
+          </a>
+        </li>
+        <li class="item">
+          <a href="{{ '/guias/test_de_nivel.html' | relative_url }}" style="text-decoration:none;color:inherit">
+            Test de nivel
+          </a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
 
-  if(document.readyState === "loading"){
-    document.addEventListener("DOMContentLoaded", apply);
-  } else {
-    apply();
-  }
-
-  // fallback: se o menu é modificado por JS depois, reaplica
-  new MutationObserver(apply).observe(document.documentElement, {subtree:true, childList:true});
-
-  // ultra-fallback: qualquer clique em <a> dentro do menu navega mesmo se algum script bloquear
-  document.addEventListener("click", function(ev){
-    var a = ev.target.closest && ev.target.closest("#menu a, nav a, .menu a");
-    if(a && a.href){ window.location.href = a.href; }
-  }, true);
-})();
-</script>
 
 <script>
 (function(){
