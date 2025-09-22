@@ -150,3 +150,16 @@ nav.navbar{
   #pie .pie__wrap{grid-template-columns:80px 1fr}
   #pie .pie__img img{width:80px}
 }
+
+/* --- NAV: manter menu à esquerda e "acceder" à direita --- */
+.menu-slot {
+  display: flex;
+  align-items: center;         /* centraliza verticalmente */
+  justify-content: flex-start; /* menu inicia à esquerda */
+}
+
+.menu-slot .account {
+  margin-left: auto;           /* empurra o "acceder" para a direita */
+  display: flex;
+  align-items: center;
+}
