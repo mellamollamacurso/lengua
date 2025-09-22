@@ -1,6 +1,13 @@
-<!-- _includes/cabeza.html (navfix; underline dentro do UL; ativo por URL + último clique) -->
+<!-- _includes/cabeza.html  |  MENU REV v1.0 -->
 <nav class="navbar navfix" id="navbar" aria-label="Navegación principal">
   <ul class="nav-list" id="navList" role="menubar">
+    <!-- Versão visível no canto esquerdo -->
+    <li class="nav-item version-tag" role="none" style="margin-right:10px; pointer-events:none; background:transparent !important;">
+      <span class="nav-link" style="padding-left:0; gap:6px; opacity:.9; color:#f7cb44; font-weight:700;">
+        v1.0
+      </span>
+    </li>
+
     <li class="nav-item has-dropdown{% if page.url == '/' %} active{% endif %}" data-idx="0" role="none">
       <a class="nav-link" href="{{ '/' | relative_url }}" role="menuitem" aria-haspopup="true" aria-expanded="false">
         Inicio <span class="caret" aria-hidden="true"></span>
@@ -53,7 +60,7 @@
       </div>
     </li>
 
-    <!-- underline dentro do UL -->
+    <!-- underline dentro do UL (mais estável) -->
     <span class="nav-underline" id="navUnderline" aria-hidden="true"></span>
   </ul>
 </nav>
@@ -64,7 +71,14 @@
   const underline = document.getElementById('navUnderline');
   if(!ul || !underline) return;
 
+  const KEY = 'menu:lastActivePath';
+
   function norm(p){ return (p || '/').replace(/\/+$/,'/'); }
+
+  function getNavItems(){
+    // Ignora a célula de versão
+    return Array.from(ul.querySelectorAll('.nav-item')).filter(li => !li.classList.contains('version-tag'));
+  }
 
   function placeUnderlineTo(li, instant=false){
     if(!li) return;
@@ -84,23 +98,25 @@
   }
 
   function setActive(li){
-    ul.querySelectorAll('.nav-item').forEach(it=>it.classList.toggle('active', it===li));
+    getNavItems().forEach(it=>it.classList.toggle('active', it===li));
   }
 
   function closeAllExcept(target){
-    ul.querySelectorAll('.has-dropdown.open').forEach(li=>{ if(li!==target) li.classList.remove('open'); });
+    getNavItems().forEach(li=>{ if(li!==target) li.classList.remove('open'); });
   }
 
   function pickActiveByURL(){
     const current = norm(location.pathname);
     let best = null, bestLen = -1;
-    ul.querySelectorAll('.nav-item .nav-link').forEach(a=>{
+    getNavItems().forEach(li=>{
+      const a = li.querySelector('.nav-link');
+      if(!a) return;
       try{
         const href = a.getAttribute('href') || '/';
         const url = new URL(href, location.origin);
         const path = norm(url.pathname);
         if(current.startsWith(path) && path.length > bestLen){
-          best = a.closest('.nav-item');
+          best = li;
           bestLen = path.length;
         }
       }catch(e){ /* ignore */ }
@@ -109,23 +125,28 @@
   }
 
   function pickActiveInitial(){
-    const key = 'menu:lastActivePath';
-    const last = sessionStorage.getItem(key);
-    if(last){
-      const a = ul.querySelector(`.nav-link[href="${last}"]`);
-      if(a) return a.closest('.nav-item');
-    }
+    // 1) último clique salvo
+    try{
+      const last = sessionStorage.getItem(KEY);
+      if(last){
+        const a = ul.querySelector(`.nav-link[href="${last}"]`);
+        if(a) return a.closest('.nav-item');
+      }
+    }catch(_){}
+    // 2) pela URL atual
     const byUrl = pickActiveByURL();
     if(byUrl) return byUrl;
-    return ul.querySelector('.nav-item');
+    // 3) fallback: primeiro item real (ignorando versão)
+    return getNavItems()[0] || null;
   }
 
   ul.addEventListener('click', e=>{
     const l = e.target.closest('.nav-link'); if(!l) return;
     const li = l.closest('.nav-item');
-    const href = l.getAttribute('href') || '/';
+    if(li && li.classList.contains('version-tag')) return; // ignora a tag de versão
 
-    try{ sessionStorage.setItem('menu:lastActivePath', href); }catch(_){}
+    const href = l.getAttribute('href') || '/';
+    try{ sessionStorage.setItem(KEY, href); }catch(_){}
 
     if(li.classList.contains('has-dropdown')){
       if(!li.classList.contains('open')){
@@ -136,7 +157,8 @@
         l.setAttribute('aria-expanded','true');
         return;
       }
-      return; // 2º clique: deixa navegar
+      // 2º clique: deixa navegar
+      return;
     }
     setActive(li); placeUnderlineTo(li);
     closeAllExcept(null);
@@ -146,8 +168,8 @@
   document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeAllExcept(null); });
 
   function init(){
-    // limpa "active" de marcações antigas e decide de novo
-    ul.querySelectorAll('.nav-item.active').forEach(it=>it.classList.remove('active'));
+    // limpa actives antigos e decide de novo
+    getNavItems().forEach(it=>it.classList.remove('active'));
     const li = pickActiveInitial();
     if(li){
       setActive(li);
