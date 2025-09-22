@@ -47,7 +47,7 @@ body{
 .nav-item.active .nav-link{color:#d799c4;font-weight:700}
 .caret{width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:6px solid currentColor;margin-left:6px;transition:transform .2s}
 .has-dropdown.open>.nav-link .caret{transform:rotate(180deg)}
-.nav-underline{position:absolute;left:0;bottom:0;height:var(--underline-h);width:0;background:#d799c4;border-radius:2px;transition:left .15s,width .15s}
+ .nav-underline{position:absolute;left:30px;bottom:0;height:5px;width:0;background:#d799c4;border-radius:2px;transition:left .15s,width .15s}
 
 /* Popover */
 .has-dropdown{position:relative}
@@ -83,3 +83,5 @@ body{
   #pie .pie__wrap{grid-template-columns:80px 1fr}
   #pie .pie__img img{width:80px}
 }
+
+nav.navbar{ width:43%; margin-inline:auto; }
