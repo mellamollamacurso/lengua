@@ -1,67 +1,76 @@
-<!-- Cabeza / Navbar (JS inline) -->
+<!-- Cabeza / Navbar (JS inline, underline dentro do UL) -->
 <nav class="navbar" id="navbar" aria-label="Navegación principal">
   <ul class="nav-list" id="navList" role="menubar">
     <li class="nav-item has-dropdown{% if page.url == '/' %} active{% endif %}" data-idx="0" role="none">
       <a class="nav-link" href="{{ '/' | relative_url }}">Inicio <span class="caret"></span></a>
-      <div class="popover"><ul>
-        <li><a href="{{ '/#conoce' | relative_url }}">Conoce el curso</a></li>
-        <li><a href="{{ '/#eventos' | relative_url }}">Eventos</a></li>
-        <li><a href="{{ '/#materiales' | relative_url }}">Materiales</a></li>
-      </ul></div>
+      <div class="popover" role="menu" aria-label="Inicio">
+        <ul>
+          <li><a href="{{ '/#conoce' | relative_url }}">Conoce el curso</a></li>
+          <li><a href="{{ '/#eventos' | relative_url }}">Eventos</a></li>
+          <li><a href="{{ '/#materiales' | relative_url }}">Materiales</a></li>
+        </ul>
+      </div>
     </li>
 
     <li class="nav-item has-dropdown{% if page.url contains '/alumno/' %} active{% endif %}" data-idx="1" role="none">
       <a class="nav-link" href="{{ '/alumno/' | relative_url }}">Alumno <span class="caret"></span></a>
-      <div class="popover"><ul>
-        <li><a href="{{ '/alumno/ejercicios/' | relative_url }}">Ejercicios</a></li>
-        <li><a href="{{ '/alumno/pruebas/' | relative_url }}">Pruebas</a></li>
-        <li><a href="{{ '/alumno/materiales/' | relative_url }}">Materiales</a></li>
-      </ul></div>
+      <div class="popover" role="menu" aria-label="Alumno">
+        <ul>
+          <li><a href="{{ '/alumno/ejercicios/' | relative_url }}">Ejercicios</a></li>
+          <li><a href="{{ '/alumno/pruebas/' | relative_url }}">Pruebas</a></li>
+          <li><a href="{{ '/alumno/materiales/' | relative_url }}">Materiales</a></li>
+        </ul>
+      </div>
     </li>
 
     <li class="nav-item has-dropdown{% if page.url contains '/profesor/' %} active{% endif %}" data-idx="2" role="none">
       <a class="nav-link" href="{{ '/profesor/' | relative_url }}">Profesor <span class="caret"></span></a>
-      <div class="popover"><ul>
-        <li><a href="{{ '/profesor/libros/' | relative_url }}">Libros</a></li>
-        <li><a href="{{ '/profesor/guias/' | relative_url }}">Guías</a></li>
-        <li><a href="{{ '/profesor/asistencia/' | relative_url }}">Asistencia</a></li>
-      </ul></div>
+      <div class="popover" role="menu" aria-label="Profesor">
+        <ul>
+          <li><a href="{{ '/profesor/libros/' | relative_url }}">Libros</a></li>
+          <li><a href="{{ '/profesor/guias/' | relative_url }}">Guías</a></li>
+          <li><a href="{{ '/profesor/asistencia/' | relative_url }}">Asistencia</a></li>
+        </ul>
+      </div>
     </li>
 
     <li class="nav-item has-dropdown{% if page.url contains '/contactos/' %} active{% endif %}" data-idx="3" role="none">
       <a class="nav-link" href="{{ '/contactos/' | relative_url }}">Contacto <span class="caret"></span></a>
-      <div class="popover"><ul>
-        <li><a href="{{ '/contactos/agendar/' | relative_url }}">Agendar citas</a></li>
-        <li><a href="{{ '/contactos/dudas/' | relative_url }}">Dudas</a></li>
-        <li><a href="{{ '/contactos/test/' | relative_url }}">Test de nivel</a></li>
-      </ul></div>
+      <div class="popover" role="menu" aria-label="Contacto">
+        <ul>
+          <li><a href="{{ '/contactos/agendar/' | relative_url }}">Agendar citas</a></li>
+          <li><a href="{{ '/contactos/dudas/' | relative_url }}">Dudas</a></li>
+          <li><a href="{{ '/contactos/test/' | relative_url }}">Test de nivel</a></li>
+        </ul>
+      </div>
     </li>
+
+    <!-- underline dentro do UL -->
+    <span class="nav-underline" id="navUnderline" aria-hidden="true"></span>
   </ul>
-  <span class="nav-underline" id="navUnderline"></span>
 </nav>
 
 <script>
 (function(){
-  const nav=document.getElementById('navbar');
-  if(!nav) return;
-  const ul=nav.querySelector('#navList');
-  const underline=nav.querySelector('#navUnderline');
+  const ul = document.getElementById('navList');
+  const underline = document.getElementById('navUnderline');
+  if(!ul || !underline) return;
 
-  function placeUnderlineTo(li,instant=false){
-    if(!underline||!li) return;
-    const c=nav.getBoundingClientRect(), r=li.getBoundingClientRect();
-    const left=r.left-c.left, width=r.width;
+  function placeUnderlineTo(li, instant=false){
+    if(!li) return;
+    const left = li.offsetLeft;
+    const width = li.offsetWidth;
     if(instant){
-      const old=underline.style.transition;
-      underline.style.transition='none';
-      underline.style.left=left+'px';
-      underline.style.width=width+'px';
+      const old = underline.style.transition;
+      underline.style.transition = 'none';
+      underline.style.left = left + 'px';
+      underline.style.width = width + 'px';
       void underline.offsetWidth;
-      underline.style.transition=old||'left .15s,width .15s';
+      underline.style.transition = old || 'left .15s,width .15s';
       return;
     }
-    underline.style.left=left+'px';
-    underline.style.width=width+'px';
+    underline.style.left = left + 'px';
+    underline.style.width = width + 'px';
   }
 
   function setActive(li){
@@ -73,21 +82,24 @@
     const l=e.target.closest('.nav-link'); if(!l) return;
     const li=l.closest('.nav-item');
     if(li.classList.contains('has-dropdown')){
-      e.preventDefault();
-      const open=li.classList.toggle('open');
-      ul.querySelectorAll('.has-dropdown').forEach(o=>{ if(o!==li) o.classList.remove('open'); });
-      setActive(li); placeUnderlineTo(li);
-      l.setAttribute('aria-expanded', String(open));
+      if(!li.classList.contains('open')){ // 1º clique abre
+        e.preventDefault();
+        li.classList.add('open');
+        setActive(li); placeUnderlineTo(li);
+        l.setAttribute('aria-expanded','true');
+        return;
+      }
+      // 2º clique navega
       return;
     }
     setActive(li); placeUnderlineTo(li);
   }, {passive:false});
 
-  document.addEventListener('click', e=>{ if(!nav.contains(e.target)) closeAll(); });
+  document.addEventListener('click', e=>{ if(!ul.contains(e.target)) closeAll(); });
   document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeAll(); });
 
   function init(){
-    const li=ul.querySelector('.nav-item.active')||ul.querySelector('.nav-item');
+    const li = ul.querySelector('.nav-item.active') || ul.querySelector('.nav-item');
     if(li) placeUnderlineTo(li, true);
   }
   window.addEventListener('load', init);
