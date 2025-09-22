@@ -33,25 +33,16 @@ body{
 .top-bar{position:fixed;inset:0 0 auto 0;height:var(--header-h);background:#0b0b0b;z-index:9999}
 .logo{position:fixed;top:10px;left:16px;width:110px;height:auto;z-index:10000}
 /* SUBSTITUA no site.css */
-/* ——— MENU: só posicionamento, sem alterar design/efeitos ——— */
 .menu-slot{
-  position: fixed;
-  top: 6px;
-  left: 150px;   /* abre espaço do logo */
-  right: 90px;   /* abre espaço do bloco "acceder" */
-  height: 58px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end; /* encosta o nav no "acceder" */
-  z-index: 9999;
+  position:fixed; top:6px;
+  /* limite entre logo e 'acceder' */
+  left:150px;               /* espaço do logo */
+  right:90px;               /* espaço do bloco 'acceder' */
+  height:58px; display:flex; align-items:center; z-index:9999;
 }
-
-/* mantém o visual anterior do nav; só tiramos centralização automática */
-nav.navbar{
-  width: 43%;   /* mesmo width do design original */
-  margin: 0;    /* evita centralizar com margin:auto */
-  /* não altere seu background/padding/underline existentes */
-}
+/* o navbar usa toda a faixa disponível, sem sobrepor 'acceder' */
+nav.navbar{ width:100%; margin:0; padding:0 30px; border-radius:14px; background:#000; color:#f1f1f1; }
+.nav-underline{ left:30px; bottom:0; height:5px; }  /* alinhada ao padding */
 
 .account{position:fixed;top:6px;right:16px;height:58px;z-index:10001;display:flex;flex-direction:column;align-items:center;gap:4px}
 .account .avatar{width:38px;height:38px;border:3px solid #fff;border-radius:50%;background:transparent}
@@ -190,48 +181,32 @@ nav.navbar.navfix{position:relative;background:var(--nav-bg);color:var(--nav-fg)
 /* === MENU (NAMESPACED .navfix) END === */
 
 
-
-/* === AJUSTES FINOS === */
+/* ===== AJUSTES MÍNIMOS (layout-only) ===== */
+/* Empurra o nav para ficar encostado no "acceder" sem alterar o design do nav */
 .menu-slot{
   position: fixed;
   top: 6px;
-  left: 150px;
-  right: 90px;
+  left: 150px;   /* espaço do logo */
+  right: 90px;   /* espaço do "acceder" */
   height: 58px;
   display: flex;
   align-items: center;
-  justify-content: flex-end; /* encostado no 'acceder' */
+  justify-content: flex-end; /* encosta o nav à direita */
   z-index: 9999;
 }
-.top-bar{ background:#000; }
-nav.navbar{
-  width: auto;
-  margin: 0;
-  padding: 0;
-  background: transparent;
-  border-radius: 0;
-  color:#f1f1f1;
-}
-.nav-underline{
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  height: 5px;
-  width: 0;
-  background:#d799c4;
-  border-radius:2px;
-  transition:left .15s,width .15s;
-}
-.nav-item.active .nav-link{ color:#d799c4; font-weight:700; }
-.nav-item:hover, .nav-item:focus-within{ background:#f7cb44; }
-.nav-item:hover .nav-link{ color:#000; font-weight:400; }
 
-/* CTA card com botão laranja acima da caixa */
+/* Mantém o nav com o design original, só evita centralização automática */
+.menu-slot > nav.navbar{ margin: 0 !important; }
+
+/* Barra preta com mesmo tom do menu */
+.top-bar{ background:#000 !important; }
+
+/* Botão laranja conforme especificação, 8px acima da caixa */
 .cta-card{ position:relative; width:180px; }
 .btn-orange{
   position:absolute;
   left:54px;
-  top:-8px; /* 8px acima da caixa */
+  top:-8px;
   width:163px;
   height:68px;
   background:rgb(255,153,51);
@@ -241,17 +216,4 @@ nav.navbar{
   cursor:pointer;
   z-index:2;
 }
-.info-card{
-  position:relative;
-  width:180px;
-  height:280px;
-  background:#fff;
-  border:3px solid #000;
-  border-radius:20px;
-  box-shadow:#000 0 15px 0 0;
-  padding:16px;
-  display:grid;
-  grid-template-rows:auto 1fr auto;
-  gap:10px;
-  z-index:1;
-}
+.info-card{ position:relative; z-index:1; }
