@@ -5,130 +5,46 @@
   <nav class="navbar" id="navbar">
     <ul class="nav-list" id="navList">
       <li class="nav-item has-dropdown" data-idx="0">
-        <a class="nav-link" href="#">Inicio <span class="caret"></span></a>
+        <a class="nav-link" href="{{ '/guias/inicio.html' | relative_url }}">Inicio <span class="caret"></span></a>
         <div class="popover" role="menu"><ul>
-          <li><a href="#" role="menuitem">Conoce el curso</a></li>
-          <li><a href="#" role="menuitem">Eventos</a></li>
-          <li><a href="#" role="menuitem">Materiales</a></li>
+          <li><a href="{{ '/guias/conoce_el_curso.html' | relative_url }}" role="menuitem">Conoce el curso</a></li>
+          <li><a href="{{ '/guias/eventos.html' | relative_url }}" role="menuitem">Eventos</a></li>
+          <li><a href="{{ '/guias/materiales.html' | relative_url }}" role="menuitem">Materiales</a></li>
         </ul></div>
       </li>
       <li class="nav-item has-dropdown" data-idx="1">
-        <a class="nav-link" href="#">Alumno <span class="caret"></span></a>
+        <a class="nav-link" href="{{ '/guias/alumno.html' | relative_url }}">Alumno <span class="caret"></span></a>
         <div class="popover" role="menu"><ul>
-          <li><a href="#" role="menuitem">Ejercicios</a></li>
-          <li><a href="#" role="menuitem">Pruebas</a></li>
-          <li><a href="#" role="menuitem">Archivos</a></li>
+          <li><a href="{{ '/guias/ejercicios.html' | relative_url }}" role="menuitem">Ejercicios</a></li>
+          <li><a href="{{ '/guias/pruebas.html' | relative_url }}" role="menuitem">Pruebas</a></li>
+          <li><a href="{{ '/guias/archivos.html' | relative_url }}" role="menuitem">Archivos</a></li>
         </ul></div>
       </li>
       <li class="nav-item has-dropdown" data-idx="2">
-        <a class="nav-link" href="#">Profesor <span class="caret"></span></a>
+        <a class="nav-link" href="{{ '/guias/profesor.html' | relative_url }}">Profesor <span class="caret"></span></a>
         <div class="popover" role="menu"><ul>
-          <li><a href="#" role="menuitem">Libros</a></li>
-          <li><a href="#" role="menuitem">Guías</a></li>
-          <li><a href="#" role="menuitem">Asistencia</a></li>
+          <li><a href="{{ '/guias/libros.html' | relative_url }}" role="menuitem">Libros</a></li>
+          <li><a href="{{ '/guias/guias.html' | relative_url }}" role="menuitem">Guías</a></li>
+          <li><a href="{{ '/guias/asistencia.html' | relative_url }}" role="menuitem">Asistencia</a></li>
         </ul></div>
       </li>
       <li class="nav-item has-dropdown" data-idx="3">
-        <a class="nav-link" href="#">Contacto <span class="caret"></span></a>
+        <a class="nav-link" href="{{ '/guias/contacto.html' | relative_url }}">Contacto <span class="caret"></span></a>
         <div class="popover" role="menu"><ul>
-          <li><a href="#" role="menuitem">Agendar citas</a></li>
-          <li><a href="#" role="menuitem">Dudas</a></li>
-          <li><a href="#" role="menuitem">Test de nivel</a></li>
+          <li><a href="{{ '/guias/agendar_citas.html' | relative_url }}" role="menuitem">Agendar citas</a></li>
+          <li><a href="{{ '/guias/dudas.html' | relative_url }}" role="menuitem">Dudas</a></li>
+          <li><a href="{{ '/guias/test_de_nivel.html' | relative_url }}" role="menuitem">Test de nivel</a></li>
         </ul></div>
       </li>
     </ul>
     <span class="nav-underline" id="navUnderline"></span>
   </nav>
 </div>
+
 <div class="account" aria-label="acceder">
   <div class="avatar" aria-hidden="true"></div>
   <div class="acc-label">acceder</div>
 </div>
-
-<nav id="menu">
-  <ul>
-    <li class="item">Inicio
-      <ul class="submenu">
-        <li class="item">
-          <a href="{{ '/guias/conoce_el_curso.html' | relative_url }}" style="text-decoration:none;color:inherit">
-            Conoce el curso
-          </a>
-        </li>
-        <li class="item">
-          <a href="{{ '/guias/eventos.html' | relative_url }}" style="text-decoration:none;color:inherit">
-            Eventos
-          </a>
-        </li>
-        <li class="item">
-          <a href="{{ '/guias/materiales.html' | relative_url }}" style="text-decoration:none;color:inherit">
-            Materiales
-          </a>
-        </li>
-      </ul>
-    </li>
-
-    <li class="item">Alumno
-      <ul class="submenu">
-        <li class="item">
-          <a href="{{ '/guias/ejercicios.html' | relative_url }}" style="text-decoration:none;color:inherit">
-            Ejercicios
-          </a>
-        </li>
-        <li class="item">
-          <a href="{{ '/guias/pruebas.html' | relative_url }}" style="text-decoration:none;color:inherit">
-            Pruebas
-          </a>
-        </li>
-        <li class="item">
-          <a href="{{ '/guias/archivos.html' | relative_url }}" style="text-decoration:none;color:inherit">
-            Archivos
-          </a>
-        </li>
-      </ul>
-    </li>
-
-    <li class="item">Profesor
-      <ul class="submenu">
-        <li class="item">
-          <a href="{{ '/guias/libros.html' | relative_url }}" style="text-decoration:none;color:inherit">
-            Libros
-          </a>
-        </li>
-        <li class="item">
-          <a href="{{ '/guias/guias.html' | relative_url }}" style="text-decoration:none;color:inherit">
-            Guías
-          </a>
-        </li>
-        <li class="item">
-          <a href="{{ '/guias/asistencia.html' | relative_url }}" style="text-decoration:none;color:inherit">
-            Asistencia
-          </a>
-        </li>
-      </ul>
-    </li>
-
-    <li class="item">Contacto
-      <ul class="submenu">
-        <li class="item">
-          <a href="{{ '/guias/agendar_citas.html' | relative_url }}" style="text-decoration:none;color:inherit">
-            Agendar citas
-          </a>
-        </li>
-        <li class="item">
-          <a href="{{ '/guias/dudas.html' | relative_url }}" style="text-decoration:none;color:inherit">
-            Dudas
-          </a>
-        </li>
-        <li class="item">
-          <a href="{{ '/guias/test_de_nivel.html' | relative_url }}" style="text-decoration:none;color:inherit">
-            Test de nivel
-          </a>
-        </li>
-      </ul>
-    </li>
-  </ul>
-</nav>
-
 
 <script>
 (function(){
@@ -181,11 +97,11 @@
   ul.addEventListener('click', (e) => {
     const link = e.target.closest('.nav-link');
     if (!link) return;
-    e.preventDefault();
 
     const li = link.closest('.nav-item');
 
     if (li.classList.contains('has-dropdown')){
+      e.preventDefault();
       li.classList.toggle('open');
       ul.querySelectorAll('.has-dropdown').forEach(o => { if (o !== li) o.classList.remove('open'); });
       ul.querySelectorAll('.nav-item').forEach(it => it.classList.toggle('active', it === li));
