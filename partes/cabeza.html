@@ -1,46 +1,54 @@
-<!-- _includes/cabeza.html (navfix; JS inline; underline dentro do UL) -->
+<!-- _includes/cabeza.html (navfix; underline dentro do UL; ativo por URL + último clique) -->
 <nav class="navbar navfix" id="navbar" aria-label="Navegación principal">
   <ul class="nav-list" id="navList" role="menubar">
     <li class="nav-item has-dropdown{% if page.url == '/' %} active{% endif %}" data-idx="0" role="none">
-      <a class="nav-link" href="{{ '/' | relative_url }}">Inicio <span class="caret"></span></a>
+      <a class="nav-link" href="{{ '/' | relative_url }}" role="menuitem" aria-haspopup="true" aria-expanded="false">
+        Inicio <span class="caret" aria-hidden="true"></span>
+      </a>
       <div class="popover" role="menu" aria-label="Inicio">
         <ul>
-          <li><a href="{{ '/#conoce' | relative_url }}">Conoce el curso</a></li>
-          <li><a href="{{ '/#eventos' | relative_url }}">Eventos</a></li>
-          <li><a href="{{ '/#materiales' | relative_url }}">Materiales</a></li>
+          <li><a href="{{ '/#conoce' | relative_url }}" role="menuitem">Conoce el curso</a></li>
+          <li><a href="{{ '/#eventos' | relative_url }}" role="menuitem">Eventos</a></li>
+          <li><a href="{{ '/#materiales' | relative_url }}" role="menuitem">Materiales</a></li>
         </ul>
       </div>
     </li>
 
     <li class="nav-item has-dropdown{% if page.url contains '/alumno/' %} active{% endif %}" data-idx="1" role="none">
-      <a class="nav-link" href="{{ '/alumno/' | relative_url }}">Alumno <span class="caret"></span></a>
+      <a class="nav-link" href="{{ '/alumno/' | relative_url }}" role="menuitem" aria-haspopup="true" aria-expanded="false">
+        Alumno <span class="caret" aria-hidden="true"></span>
+      </a>
       <div class="popover" role="menu" aria-label="Alumno">
         <ul>
-          <li><a href="{{ '/alumno/ejercicios/' | relative_url }}">Ejercicios</a></li>
-          <li><a href="{{ '/alumno/pruebas/' | relative_url }}">Pruebas</a></li>
-          <li><a href="{{ '/alumno/materiales/' | relative_url }}">Materiales</a></li>
+          <li><a href="{{ '/alumno/ejercicios/' | relative_url }}" role="menuitem">Ejercicios</a></li>
+          <li><a href="{{ '/alumno/pruebas/' | relative_url }}" role="menuitem">Pruebas</a></li>
+          <li><a href="{{ '/alumno/materiales/' | relative_url }}" role="menuitem">Materiales</a></li>
         </ul>
       </div>
     </li>
 
     <li class="nav-item has-dropdown{% if page.url contains '/profesor/' %} active{% endif %}" data-idx="2" role="none">
-      <a class="nav-link" href="{{ '/profesor/' | relative_url }}">Profesor <span class="caret"></span></a>
+      <a class="nav-link" href="{{ '/profesor/' | relative_url }}" role="menuitem" aria-haspopup="true" aria-expanded="false">
+        Profesor <span class="caret" aria-hidden="true"></span>
+      </a>
       <div class="popover" role="menu" aria-label="Profesor">
         <ul>
-          <li><a href="{{ '/profesor/libros/' | relative_url }}">Libros</a></li>
-          <li><a href="{{ '/profesor/guias/' | relative_url }}">Guías</a></li>
-          <li><a href="{{ '/profesor/asistencia/' | relative_url }}">Asistencia</a></li>
+          <li><a href="{{ '/profesor/libros/' | relative_url }}" role="menuitem">Libros</a></li>
+          <li><a href="{{ '/profesor/guias/' | relative_url }}" role="menuitem">Guías</a></li>
+          <li><a href="{{ '/profesor/asistencia/' | relative_url }}" role="menuitem">Asistencia</a></li>
         </ul>
       </div>
     </li>
 
     <li class="nav-item has-dropdown{% if page.url contains '/contactos/' %} active{% endif %}" data-idx="3" role="none">
-      <a class="nav-link" href="{{ '/contactos/' | relative_url }}">Contacto <span class="caret"></span></a>
+      <a class="nav-link" href="{{ '/contactos/' | relative_url }}" role="menuitem" aria-haspopup="true" aria-expanded="false">
+        Contacto <span class="caret" aria-hidden="true"></span>
+      </a>
       <div class="popover" role="menu" aria-label="Contacto">
         <ul>
-          <li><a href="{{ '/contactos/agendar/' | relative_url }}">Agendar citas</a></li>
-          <li><a href="{{ '/contactos/dudas/' | relative_url }}">Dudas</a></li>
-          <li><a href="{{ '/contactos/test/' | relative_url }}">Test de nivel</a></li>
+          <li><a href="{{ '/contactos/agendar/' | relative_url }}" role="menuitem">Agendar citas</a></li>
+          <li><a href="{{ '/contactos/dudas/' | relative_url }}" role="menuitem">Dudas</a></li>
+          <li><a href="{{ '/contactos/test/' | relative_url }}" role="menuitem">Test de nivel</a></li>
         </ul>
       </div>
     </li>
@@ -56,12 +64,12 @@
   const underline = document.getElementById('navUnderline');
   if(!ul || !underline) return;
 
+  function norm(p){ return (p || '/').replace(/\/+$/,'/'); }
+
   function placeUnderlineTo(li, instant=false){
     if(!li) return;
-    const ulRect = ul.getBoundingClientRect();
-    const liRect = li.getBoundingClientRect();
-    const left = liRect.left - ulRect.left + ul.scrollLeft;
-    const width = liRect.width;
+    const left = li.offsetLeft;
+    const width = li.offsetWidth;
     if(instant){
       const old = underline.style.transition;
       underline.style.transition = 'none';
@@ -78,55 +86,75 @@
   function setActive(li){
     ul.querySelectorAll('.nav-item').forEach(it=>it.classList.toggle('active', it===li));
   }
+
   function closeAllExcept(target){
     ul.querySelectorAll('.has-dropdown.open').forEach(li=>{ if(li!==target) li.classList.remove('open'); });
   }
-  function closeAll(){
-    closeAllExcept(null);
+
+  function pickActiveByURL(){
+    const current = norm(location.pathname);
+    let best = null, bestLen = -1;
+    ul.querySelectorAll('.nav-item .nav-link').forEach(a=>{
+      try{
+        const href = a.getAttribute('href') || '/';
+        const url = new URL(href, location.origin);
+        const path = norm(url.pathname);
+        if(current.startsWith(path) && path.length > bestLen){
+          best = a.closest('.nav-item');
+          bestLen = path.length;
+        }
+      }catch(e){ /* ignore */ }
+    });
+    return best;
+  }
+
+  function pickActiveInitial(){
+    const key = 'menu:lastActivePath';
+    const last = sessionStorage.getItem(key);
+    if(last){
+      const a = ul.querySelector(`.nav-link[href="${last}"]`);
+      if(a) return a.closest('.nav-item');
+    }
+    const byUrl = pickActiveByURL();
+    if(byUrl) return byUrl;
+    return ul.querySelector('.nav-item');
   }
 
   ul.addEventListener('click', e=>{
-    const l=e.target.closest('.nav-link'); if(!l) return;
-    const li=l.closest('.nav-item');
+    const l = e.target.closest('.nav-link'); if(!l) return;
+    const li = l.closest('.nav-item');
+    const href = l.getAttribute('href') || '/';
+
+    try{ sessionStorage.setItem('menu:lastActivePath', href); }catch(_){}
+
     if(li.classList.contains('has-dropdown')){
-      // 1º clique abre; fecha os demais para evitar "baloes duplicados"
       if(!li.classList.contains('open')){
         e.preventDefault();
         li.classList.add('open');
         closeAllExcept(li);
-        setActive(li);
-        placeUnderlineTo(li);
+        setActive(li); placeUnderlineTo(li);
         l.setAttribute('aria-expanded','true');
         return;
       }
-      // 2º clique: segue navegação
-      closeAllExcept(li);
-      setActive(li);
-      placeUnderlineTo(li);
-      return;
+      return; // 2º clique: deixa navegar
     }
-    setActive(li);
-    placeUnderlineTo(li);
-    closeAll(); // fechar dropdowns se clicar em link simples
+    setActive(li); placeUnderlineTo(li);
+    closeAllExcept(null);
   }, {passive:false});
 
-  document.addEventListener('click', e=>{ if(!ul.contains(e.target)) closeAll(); });
-  document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeAll(); });
+  document.addEventListener('click', e=>{ if(!ul.contains(e.target)) closeAllExcept(null); });
+  document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeAllExcept(null); });
 
-  const debounce = (fn,ms)=>{ let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn(...a),ms); }; };
-  const init = ()=>{
-    const li = ul.querySelector('.nav-item.active') || ul.querySelector('.nav-item');
-    if(li) placeUnderlineTo(li, true);
-  };
-  const initDebounced = debounce(init, 30);
-
-  // Only ResizeObserver (no MutationObserver) to avoid loops.
-  if('ResizeObserver' in window){
-    const ro = new ResizeObserver(()=>initDebounced());
-    ro.observe(ul);
+  function init(){
+    // limpa "active" de marcações antigas e decide de novo
+    ul.querySelectorAll('.nav-item.active').forEach(it=>it.classList.remove('active'));
+    const li = pickActiveInitial();
+    if(li){
+      setActive(li);
+      placeUnderlineTo(li, true);
+    }
   }
-
   window.addEventListener('load', init);
-  window.addEventListener('resize', initDebounced);
+  window.addEventListener('resize', ()=>init());
 })();
 </script>
