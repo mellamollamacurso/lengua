@@ -1,5 +1,5 @@
-<!-- Cabeza / Navbar (JS inline, underline dentro do UL) -->
-<nav class="navbar" id="navbar" aria-label="Navegación principal">
+<!-- _includes/cabeza.html (navfix; JS inline; underline dentro do UL) -->
+<nav class="navbar navfix" id="navbar" aria-label="Navegación principal">
   <ul class="nav-list" id="navList" role="menubar">
     <li class="nav-item has-dropdown{% if page.url == '/' %} active{% endif %}" data-idx="0" role="none">
       <a class="nav-link" href="{{ '/' | relative_url }}">Inicio <span class="caret"></span></a>
@@ -58,8 +58,10 @@
 
   function placeUnderlineTo(li, instant=false){
     if(!li) return;
-    const left = li.offsetLeft;
-    const width = li.offsetWidth;
+    const ulRect = ul.getBoundingClientRect();
+    const liRect = li.getBoundingClientRect();
+    const left = liRect.left - ulRect.left + ul.scrollLeft;
+    const width = liRect.width;
     if(instant){
       const old = underline.style.transition;
       underline.style.transition = 'none';
@@ -76,33 +78,55 @@
   function setActive(li){
     ul.querySelectorAll('.nav-item').forEach(it=>it.classList.toggle('active', it===li));
   }
-  function closeAll(){ ul.querySelectorAll('.has-dropdown.open').forEach(li=>li.classList.remove('open')); }
+  function closeAllExcept(target){
+    ul.querySelectorAll('.has-dropdown.open').forEach(li=>{ if(li!==target) li.classList.remove('open'); });
+  }
+  function closeAll(){
+    closeAllExcept(null);
+  }
 
   ul.addEventListener('click', e=>{
     const l=e.target.closest('.nav-link'); if(!l) return;
     const li=l.closest('.nav-item');
     if(li.classList.contains('has-dropdown')){
-      if(!li.classList.contains('open')){ // 1º clique abre
+      // 1º clique abre; fecha os demais para evitar "baloes duplicados"
+      if(!li.classList.contains('open')){
         e.preventDefault();
         li.classList.add('open');
-        setActive(li); placeUnderlineTo(li);
+        closeAllExcept(li);
+        setActive(li);
+        placeUnderlineTo(li);
         l.setAttribute('aria-expanded','true');
         return;
       }
-      // 2º clique navega
+      // 2º clique: segue navegação
+      closeAllExcept(li);
+      setActive(li);
+      placeUnderlineTo(li);
       return;
     }
-    setActive(li); placeUnderlineTo(li);
+    setActive(li);
+    placeUnderlineTo(li);
+    closeAll(); // fechar dropdowns se clicar em link simples
   }, {passive:false});
 
   document.addEventListener('click', e=>{ if(!ul.contains(e.target)) closeAll(); });
   document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeAll(); });
 
-  function init(){
+  const debounce = (fn,ms)=>{ let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn(...a),ms); }; };
+  const init = ()=>{
     const li = ul.querySelector('.nav-item.active') || ul.querySelector('.nav-item');
     if(li) placeUnderlineTo(li, true);
+  };
+  const initDebounced = debounce(init, 30);
+
+  // Only ResizeObserver (no MutationObserver) to avoid loops.
+  if('ResizeObserver' in window){
+    const ro = new ResizeObserver(()=>initDebounced());
+    ro.observe(ul);
   }
+
   window.addEventListener('load', init);
-  window.addEventListener('resize', init);
+  window.addEventListener('resize', initDebounced);
 })();
 </script>
