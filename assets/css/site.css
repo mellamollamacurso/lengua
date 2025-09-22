@@ -136,3 +136,47 @@ nav.navbar{position:relative;background:var(--nav-bg);color:var(--nav-fg);paddin
 .navbar .popover a:hover{background:var(--popover-hover-bg)}
 /* ===== /MENU ===== */
 
+
+/* === MENU (SCOPED, SAFE) START === */
+.navbar{
+  --nav-bg:#000000; --nav-fg:#f1f1f1; --nav-width:min(980px, 92vw); --nav-item-h:35px;
+  --menu-font-family:TT Lakes Neue Trial, system-ui, Segoe UI, Roboto, Arial; --menu-font-weight:400; --menu-font-style:normal;
+  --hover-fill:rgba(247,203,68,1); --hover-fg:#000000; --hover-fw:400; --hover-fs:normal; --hover-radius:5px;
+  --underline-color:#d799c4; --underline-height:5px;
+  --active-bg:rgba(215,153,196,0.25); --active-border-w:0px; --active-border-c:#ffffff; --active-fg:#d799c4; --active-fw:700; --active-fs:normal;
+  --nav-gap:5px; --nav-border-w:0px; --nav-border-c:#000000;
+  --popover-bg:#d799c4; --popover-fg:#000000;
+  --dropdown-font-family:TT Lakes Neue Trial, system-ui, Segoe UI, Roboto, Arial; --dropdown-font-weight:400; --dropdown-font-style:normal;
+  --popover-border-w:3px; --popover-border-c:#000000;
+  --popover-sep-w:1px; --popover-sep-c:#7f5773;
+  --popover-hover-bg:#f7cb44;
+  --popover-shadow-rgb:0,0,0; --popover-shadow-a:1;
+  --shadow-x:0px; --shadow-y:20px; --shadow-blur:0px; --shadow-spread:0px;
+  --radius:12px;
+  --shadow: var(--shadow-x) var(--shadow-y) var(--shadow-blur) var(--shadow-spread) rgba(var(--popover-shadow-rgb), var(--popover-shadow-a));
+}
+
+nav.navbar{position:relative;background:var(--nav-bg);color:var(--nav-fg);padding:0 30px;border-radius:14px;border:var(--nav-border-w) solid var(--nav-border-c);width:var(--nav-width);margin:14px auto}
+.navbar .nav-list{display:flex;gap:var(--nav-gap);margin:0;padding:0;list-style:none;position:relative}
+.navbar .nav-item{position:relative;min-height:var(--nav-item-h);display:flex;align-items:center;border-radius:var(--hover-radius);border:var(--active-border-w) solid transparent}
+.navbar .nav-link{display:flex;align-items:center;gap:8px;color:var(--nav-fg);text-decoration:none;padding:12px 8px;line-height:1;font-family:var(--menu-font-family);font-weight:var(--menu-font-weight);font-style:var(--menu-font-style)}
+.navbar .nav-item:hover,.navbar .nav-item:focus-within{background:var(--hover-fill)}
+.navbar .nav-item:hover .nav-link{color:var(--hover-fg);font-weight:var(--hover-fw);font-style:var(--hover-fs)}
+.navbar .nav-item.active{background:var(--active-bg);border-color:var(--active-border-c);border-width:var(--active-border-w)}
+.navbar .nav-item.active .nav-link{color:var(--active-fg);font-weight:var(--active-fw);font-style:var(--active-fs)}
+
+/* underline agora dentro do UL */
+.navbar .nav-underline{position:absolute;left:0;bottom:0;height:var(--underline-height);width:0;background:var(--underline-color);border-radius:2px;transition:left .15s,width .15s}
+
+.navbar .has-dropdown{position:relative}
+.navbar .has-dropdown>.nav-link .caret{width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:6px solid currentColor;margin-left:6px;transition:transform .2s}
+.navbar .has-dropdown.open>.nav-link .caret{transform:rotate(180deg)}
+.navbar .popover{position:absolute;top:100%;left:50%;transform:translateX(-50%);margin-top:12px;background:var(--popover-bg);color:var(--popover-fg);border-radius:var(--radius);box-shadow:var(--shadow);min-width:220px;max-width:320px;padding:8px 0;border:var(--popover-border-w) solid var(--popover-border-c);display:none;z-index:10;font-family:var(--dropdown-font-family);font-weight:var(--dropdown-font-weight);font-style:var(--dropdown-font-style)}
+.navbar .has-dropdown.open .popover{display:block}
+.navbar .popover::before{content:"";position:absolute;top:-8px;left:50%;transform:translateX(-50%);border-left:8px solid transparent;border-right:8px solid transparent;border-bottom:8px solid var(--popover-bg)}
+.navbar .popover ul{margin:0;padding:0;list-style:none}
+.navbar .popover li+li{border-top:var(--popover-sep-w) solid var(--popover-sep-c)}
+.navbar .popover a{display:block;padding:10px 14px;text-decoration:none;color:var(--popover-fg)}
+.navbar .popover a:hover{background:var(--popover-hover-bg)}
+/* === MENU (SCOPED, SAFE) END === */
+
