@@ -151,15 +151,17 @@ nav.navbar{
   #pie .pie__img img{width:80px}
 }
 
-/* --- NAV: manter menu à esquerda e "acceder" à direita --- */
-.menu-slot {
-  display: flex;
-  align-items: center;         /* centraliza verticalmente */
-  justify-content: flex-start; /* menu inicia à esquerda */
-}
 
-.menu-slot .account {
-  margin-left: auto;           /* empurra o "acceder" para a direita */
+/* === Ajuste apenas de posição: menu à esquerda do "acceder" === */
+.menu-slot{
+  position: fixed;
+  top: 6px;
+  left: 150px;   /* espaço do logo */
+  right: 96px;   /* espaço reservado ao bloco "acceder" */
+  height: 58px;
   display: flex;
   align-items: center;
+  justify-content: flex-end; /* encosta nav ao lado esquerdo do "acceder" */
+  z-index: 9999;
 }
+.menu-slot > .navbar{ margin-inline: 0 !important; }
