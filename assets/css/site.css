@@ -18,7 +18,7 @@
 html,body{min-height:100vh;height:auto}
 
 body{
-  background-image: url("/inicial/a00.png");
+  background-image: url("../../inicial/a00.png");
   background-repeat: repeat-x;
   background-position: 0 0;
   background-color: #f7cb44;
