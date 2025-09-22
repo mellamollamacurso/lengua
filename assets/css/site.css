@@ -165,3 +165,41 @@ nav.navbar{
   z-index: 9999;
 }
 .menu-slot > .navbar{ margin-inline: 0 !important; }
+
+
+/* === Escopo de estilos HOME vs internas === */
+
+/* Home mantém cartão branco */
+.page-inicio .info-card {
+  width: 180px;
+  height: 280px;
+  background: #fff;
+  border: 3px solid #000;
+  border-radius: 20px;
+  box-shadow: #000 0 15px 0 0;
+  padding: 16px;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 10px;
+  position: relative;
+}
+
+/* Nas páginas internas, info-card neutro */
+body:not(.page-inicio) .info-card {
+  width: auto;
+  height: auto;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  display: initial;
+  grid-template-rows: initial;
+  gap: 0;
+  position: static;
+}
+
+/* Esconde elementos exclusivos da home */
+body:not(.page-inicio) .hero .title-img,
+body:not(.page-inicio) .hero .btn-orange {
+  display: none !important;
+}
