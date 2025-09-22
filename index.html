@@ -1,58 +1,14 @@
 ---
 layout: predefinido
-title: index
+title: Inicio
 ---
-<!doctype html>
-<html lang="es">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Comparación · Pie al final</title>
-  <link rel="stylesheet" href="assets/css/site.css">
-</head>
-<body>
 
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-  const ul = document.getElementById('navList');
-  const underline = document.getElementById('navUnderline');
-  if (ul && underline) {
-    function placeUnderlineTo(li){
-      const r = li.getBoundingClientRect();
-      const pr = ul.getBoundingClientRect();
-      underline.style.left = (r.left - pr.left + 8) + 'px';
-      underline.style.width = Math.max(0, r.width - 16) + 'px';
-    }
-    const active = ul.querySelector('.nav-item.active') || ul.querySelector('.nav-item');
-    if (active) placeUnderlineTo(active);
-    ul.querySelectorAll('.nav-item').forEach(li => {
-      li.addEventListener('mouseenter', () => placeUnderlineTo(li));
-      li.addEventListener('focusin', () => placeUnderlineTo(li));
-    });
-    ul.addEventListener('mouseleave', () => active && placeUnderlineTo(active));
-  }
-  document.querySelectorAll('.has-dropdown').forEach(li => {
-    li.addEventListener('mouseenter', () => li.classList.add('open'));
-    li.addEventListener('mouseleave', () => li.classList.remove('open'));
-    const a = li.querySelector('.nav-link');
-    if (a) a.addEventListener('click', (e) => e.preventDefault());
-  });
-});
-</script>
-
-
-<main id="contenido">
-  <section class="hero">
-     <img src="inicial/a04.png" alt="">
-    <button class="btn-orange">¡Confiere!</button>
-    <div class="info-card">
-      <div class="pink-block"></div>
-      <h2 class="info-title">¡Entérate!</h2>
-      <p class="info-text">Um curso feito por professores…</p>
-    </div>
-  </section>
-</main>
-
-
-</body>
-</html>
+<section class="hero">
+  <img class="title-img" src="{{ '/inicial/a04.png' | relative_url }}" alt="Título">
+  <button class="btn-orange">¡Confiere!</button>
+  <div class="info-card">
+    <div class="pink-block"></div>
+    <h2 class="info-title">¡Entérate!</h2>
+    <p class="info-text">Um curso feito por professores…</p>
+  </div>
+</section>
