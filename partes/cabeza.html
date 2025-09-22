@@ -1,182 +1,113 @@
-<!-- _includes/cabeza.html  |  MENU REV v1.0 -->
-<nav class="navbar navfix" id="navbar" aria-label="Navegación principal">
-  <ul class="nav-list" id="navList" role="menubar">
-    <!-- Versão visível no canto esquerdo -->
-    <li class="nav-item version-tag" role="none" style="margin-right:10px; pointer-events:none; background:transparent !important;">
-      <span class="nav-link" style="padding-left:0; gap:6px; opacity:.9; color:#f7cb44; font-weight:700;">
-        v1.0
-      </span>
-    </li>
-    
-    <li class="nav-item has-dropdown{% if page.url == '/' %} active{% endif %}" data-idx="0" role="none">
-      <a class="nav-link" href="{{ '/' | relative_url }}" role="menuitem" aria-haspopup="true" aria-expanded="false">
-        Inicio <span class="caret" aria-hidden="true"></span>
-      </a>
-      <div class="popover" role="menu" aria-label="Inicio">
-        <ul>
-          <li><a href="{{ '/#conoce' | relative_url }}" role="menuitem">Conoce el curso</a></li>
-          <li><a href="{{ '/#eventos' | relative_url }}" role="menuitem">Eventos</a></li>
-          <li><a href="{{ '/#materiales' | relative_url }}" role="menuitem">Materiales</a></li>
-        </ul>
-      </div>
-    </li>
+<div class="top-bar" aria-hidden="true"></div>
+<img class="logo" src="{{ '/inicial/a03.gif' | relative_url }}" alt="Cultura Hispánica" />
 
-    <li class="nav-item has-dropdown{% if page.url contains '/alumno/' %} active{% endif %}" data-idx="1" role="none">
-      <a class="nav-link" href="{{ '/alumno/' | relative_url }}" role="menuitem" aria-haspopup="true" aria-expanded="false">
-        Alumno <span class="caret" aria-hidden="true"></span>
-      </a>
-      <div class="popover" role="menu" aria-label="Alumno">
-        <ul>
-          <li><a href="{{ '/alumno/ejercicios/' | relative_url }}" role="menuitem">Ejercicios</a></li>
-          <li><a href="{{ '/alumno/pruebas/' | relative_url }}" role="menuitem">Pruebas</a></li>
-          <li><a href="{{ '/alumno/materiales/' | relative_url }}" role="menuitem">Materiales</a></li>
-        </ul>
-      </div>
-    </li>
-
-    <li class="nav-item has-dropdown{% if page.url contains '/profesor/' %} active{% endif %}" data-idx="2" role="none">
-      <a class="nav-link" href="{{ '/profesor/' | relative_url }}" role="menuitem" aria-haspopup="true" aria-expanded="false">
-        Profesor <span class="caret" aria-hidden="true"></span>
-      </a>
-      <div class="popover" role="menu" aria-label="Profesor">
-        <ul>
-          <li><a href="{{ '/profesor/libros/' | relative_url }}" role="menuitem">Libros</a></li>
-          <li><a href="{{ '/profesor/guias/' | relative_url }}" role="menuitem">Guías</a></li>
-          <li><a href="{{ '/profesor/asistencia/' | relative_url }}" role="menuitem">Asistencia</a></li>
-        </ul>
-      </div>
-    </li>
-
-    <li class="nav-item has-dropdown{% if page.url contains '/contactos/' %} active{% endif %}" data-idx="3" role="none">
-      <a class="nav-link" href="{{ '/contactos/' | relative_url }}" role="menuitem" aria-haspopup="true" aria-expanded="false">
-        Contacto <span class="caret" aria-hidden="true"></span>
-      </a>
-      <div class="popover" role="menu" aria-label="Contacto">
-        <ul>
-          <li><a href="{{ '/contactos/agendar/' | relative_url }}" role="menuitem">Agendar citas</a></li>
-          <li><a href="{{ '/contactos/dudas/' | relative_url }}" role="menuitem">Dudas</a></li>
-          <li><a href="{{ '/contactos/test/' | relative_url }}" role="menuitem">Test de nivel</a></li>
-        </ul>
-      </div>
-    </li>
-
-    <!-- underline dentro do UL (mais estável) -->
-    <span class="nav-underline" id="navUnderline" aria-hidden="true"></span>
-  </ul>
-</nav>
+<div class="menu-slot">
+  <nav class="navbar" id="navbar">
+    <ul class="nav-list" id="navList">
+      <li class="nav-item has-dropdown" data-idx="0">
+        <a class="nav-link" href="#">Inicio <span class="caret"></span></a>
+        <div class="popover" role="menu"><ul>
+          <li><a href="#" role="menuitem">Conoce el curso</a></li>
+          <li><a href="#" role="menuitem">Eventos</a></li>
+          <li><a href="#" role="menuitem">Materiales</a></li>
+        </ul></div>
+      </li>
+      <li class="nav-item has-dropdown" data-idx="1">
+        <a class="nav-link" href="#">Alumno <span class="caret"></span></a>
+        <div class="popover" role="menu"><ul>
+          <li><a href="#" role="menuitem">Ejercicios</a></li>
+          <li><a href="#" role="menuitem">Pruebas</a></li>
+          <li><a href="#" role="menuitem">Materiales</a></li>
+        </ul></div>
+      </li>
+      <li class="nav-item has-dropdown" data-idx="2">
+        <a class="nav-link" href="#">Profesor <span class="caret"></span></a>
+        <div class="popover" role="menu"><ul>
+          <li><a href="#" role="menuitem">Libros</a></li>
+          <li><a href="#" role="menuitem">Guías</a></li>
+          <li><a href="#" role="menuitem">Asistencia</a></li>
+        </ul></div>
+      </li>
+      <li class="nav-item has-dropdown" data-idx="3">
+        <a class="nav-link" href="#">Contacto <span class="caret"></span></a>
+        <div class="popover" role="menu"><ul>
+          <li><a href="#" role="menuitem">Agendar citas</a></li>
+          <li><a href="#" role="menuitem">Dudas</a></li>
+          <li><a href="#" role="menuitem">Test de nivel</a></li>
+        </ul></div>
+      </li>
+    </ul>
+    <span class="nav-underline" id="navUnderline"></span>
+  </nav>
+</div>
+<div class="account" aria-label="acceder">
+  <div class="avatar" aria-hidden="true"></div>
+  <div class="acc-label">acceder</div>
+</div>
 
 <script>
 (function(){
-  const ul = document.getElementById('navList');
+  const nav = document.getElementById('navbar');
+  const ul  = document.getElementById('navList');
   const underline = document.getElementById('navUnderline');
-  if(!ul || !underline) return;
-
-  const KEY = 'menu:lastActivePath';
-
-  function norm(p){ return (p || '/').replace(/\/+$/,'/'); }
-
-  function getNavItems(){
-    // Ignora a célula de versão
-    return Array.from(ul.querySelectorAll('.nav-item')).filter(li => !li.classList.contains('version-tag'));
-  }
-
-  function placeUnderlineTo(li, instant=false){
-    if(!li) return;
-    const left = li.offsetLeft;
-    const width = li.offsetWidth;
-    if(instant){
-      const old = underline.style.transition;
-      underline.style.transition = 'none';
-      underline.style.left = left + 'px';
-      underline.style.width = width + 'px';
-      void underline.offsetWidth;
-      underline.style.transition = old || 'left .15s,width .15s';
-      return;
-    }
-    underline.style.left = left + 'px';
-    underline.style.width = width + 'px';
-  }
 
   function setActive(li){
-    getNavItems().forEach(it=>it.classList.toggle('active', it===li));
+    ul.querySelectorAll('.nav-item').forEach(it => it.classList.toggle('active', it === li));
   }
-
-  function closeAllExcept(target){
-    getNavItems().forEach(li=>{ if(li!==target) li.classList.remove('open'); });
+  function moveUnderline(li, instant=false){
+    const cr = nav.getBoundingClientRect();
+    const r  = li.getBoundingClientRect();
+    const left  = r.left - cr.left;
+    const width = r.width;
+    if (instant){
+      const t = underline.style.transition;
+      underline.style.transition = 'none';
+      underline.style.left  = left+'px';
+      underline.style.width = width+'px';
+      void underline.offsetWidth;
+      underline.style.transition = t || 'left .15s,width .15s';
+    }else{
+      underline.style.left  = left+'px';
+      underline.style.width = width+'px';
+    }
   }
+  function closeAll(){ ul.querySelectorAll('.has-dropdown.open').forEach(li => li.classList.remove('open')); }
 
-  function pickActiveByURL(){
-    const current = norm(location.pathname);
-    let best = null, bestLen = -1;
-    getNavItems().forEach(li=>{
-      const a = li.querySelector('.nav-link');
-      if(!a) return;
-      try{
-        const href = a.getAttribute('href') || '/';
-        const url = new URL(href, location.origin);
-        const path = norm(url.pathname);
-        if(current.startsWith(path) && path.length > bestLen){
-          best = li;
-          bestLen = path.length;
-        }
-      }catch(e){ /* ignore */ }
-    });
-    return best;
-  }
-
-  function pickActiveInitial(){
-    // 1) último clique salvo
-    try{
-      const last = sessionStorage.getItem(KEY);
-      if(last){
-        const a = ul.querySelector(`.nav-link[href="${last}"]`);
-        if(a) return a.closest('.nav-item');
-      }
-    }catch(_){}
-    // 2) pela URL atual
-    const byUrl = pickActiveByURL();
-    if(byUrl) return byUrl;
-    // 3) fallback: primeiro item real (ignorando versão)
-    return getNavItems()[0] || null;
-  }
-
-  ul.addEventListener('click', e=>{
-    const l = e.target.closest('.nav-link'); if(!l) return;
-    const li = l.closest('.nav-item');
-    if(li && li.classList.contains('version-tag')) return; // ignora a tag de versão
-
-    const href = l.getAttribute('href') || '/';
-    try{ sessionStorage.setItem(KEY, href); }catch(_){}
-
+  ul.addEventListener('click',(e)=>{
+    const link = e.target.closest('.nav-link');
+    if(!link) return;
+    e.preventDefault();
+    const li = link.closest('.nav-item');
     if(li.classList.contains('has-dropdown')){
-      if(!li.classList.contains('open')){
-        e.preventDefault();
-        li.classList.add('open');
-        closeAllExcept(li);
-        setActive(li); placeUnderlineTo(li);
-        l.setAttribute('aria-expanded','true');
-        return;
-      }
-      // 2º clique: deixa navegar
-      return;
+      li.classList.toggle('open');
+      ul.querySelectorAll('.has-dropdown').forEach(o=>{ if(o!==li) o.classList.remove('open'); });
+    }else{
+      closeAll();
     }
-    setActive(li); placeUnderlineTo(li);
-    closeAllExcept(null);
-  }, {passive:false});
+    setActive(li);
+    moveUnderline(li);
+  });
 
-  document.addEventListener('click', e=>{ if(!ul.contains(e.target)) closeAllExcept(null); });
-  document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeAllExcept(null); });
+  ul.addEventListener('mouseenter',(e)=>{
+    const li = e.target.closest('.nav-item');
+    if(li) moveUnderline(li);
+  }, true);
+  ul.addEventListener('mouseleave',()=>{
+    const a = ul.querySelector('.nav-item.active') || ul.querySelector('.nav-item');
+    moveUnderline(a);
+  });
 
-  function init(){
-    // limpa actives antigos e decide de novo
-    getNavItems().forEach(it=>it.classList.remove('active'));
-    const li = pickActiveInitial();
-    if(li){
-      setActive(li);
-      placeUnderlineTo(li, true);
-    }
-  }
-  window.addEventListener('load', init);
-  window.addEventListener('resize', ()=>init());
+  document.addEventListener('click',(e)=>{ if(!nav.contains(e.target)) closeAll(); });
+  document.addEventListener('keydown',(e)=>{ if(e.key==='Escape') closeAll(); });
+
+  window.addEventListener('load',()=>{
+    const a = ul.querySelector('.nav-item.active') || ul.querySelector('.nav-item');
+    setActive(a);
+    moveUnderline(a, true);
+  });
+  window.addEventListener('resize',()=>{
+    const a = ul.querySelector('.nav-item.active') || ul.querySelector('.nav-item');
+    moveUnderline(a, true);
+  });
 })();
 </script>
