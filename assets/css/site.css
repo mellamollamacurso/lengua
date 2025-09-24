@@ -75,7 +75,6 @@ h1,h2,h3{ font-family:"Square721 Cn BT","TT Lakes Neue", system-ui, sans-serif; 
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{min-height:100vh;height:auto}
 body{ color:#000000 !important; }
-a{ color:#ffffff !important; }
 .btn,.btn-primary,button.primary{ background:#4f46e5 !important; color:#fff !important; }
 .card,.panel,.box{ background:#000000 !important; }
 .menu,.navbar,header,.topbar{ background:#000000 !important; }
@@ -106,7 +105,7 @@ body{ background-color:#8524a8 !important; }
 :root{
   --nav-bg:#000000; --nav-fg:#f1f1f1; --nav-width:43%; --nav-item-h:35px;
   --menu-font-family:"TTLakesNeueTrialLight","TTLakesNeueTrialCompressedBold",Arial,sans-serif; --menu-font-weight:400; --menu-font-style:normal;
-  --hover-fill:rgba(247,203,68,1); --hover-fg:#000000; --hover-fw:400; --hover-fs:normal; --hover-radius:5px;
+  --hover-fill:rgba(133,35,168,1); --hover-fg:#000000; --hover-fw:400; --hover-fs:normal; --hover-radius:5px;
   --underline-color:#d799c4; --underline-height:5px;
   --active-bg:rgba(215,153,196,0.25); --active-border-w:0px; --active-border-c:#ffffff; --active-fg:#d799c4; --active-fw:700; --active-fs:normal;
   --nav-gap:5px; --nav-border-w:0px; --nav-border-c:#000000;
@@ -114,7 +113,7 @@ body{ background-color:#8524a8 !important; }
   --dropdown-font-family:"TTLakesNeueTrialLight","TTLakesNeueTrialCompressedBold",Arial,sans-serif; --dropdown-font-weight:400; --dropdown-font-style:normal;
   --popover-border-w:3px; --popover-border-c:#000000;
   --popover-sep-w:1px; --popover-sep-c:#7f5773;
-  --popover-hover-bg:#f7cb44;
+  --popover-hover-bg:#8523a8;
   --popover-shadow-rgb:0,0,0; --popover-shadow-a:1;
   --shadow-x:0px; --shadow-y:20px; --shadow-blur:0px; --shadow-spread:0px;
   --radius:12px;
