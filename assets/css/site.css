@@ -1,4 +1,16 @@
+/* Aliases para manter os nomes antigos do menu */
+@font-face{
+  font-family:"TTLakesNeueTrialLight";
+  src:url("../fonts/TT Lakes Neue Trial Light.woff2") format("woff2");
+  font-weight:300; font-style:normal; font-display:swap;
+}
+@font-face{
+  font-family:"TTLakesNeueTrialCompressedBold";
+  src:url("../fonts/TT Lakes Neue Trial Compressed Bold.woff2") format("woff2");
+  font-weight:700; font-style:normal; font-display:swap;
+}
 /* === Fonts: self-hosted @font-face (WOFF2) === */
+
 /* Base path: /assets/fonts/ — ajuste se necessário. */
 @font-face{
   font-family:"TT Lakes Neue";
