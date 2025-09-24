@@ -1,15 +1,39 @@
-
 <footer id="pie" class="pie" role="contentinfo" aria-label="Rodapé">
-  <div class="pie__wrap">
-    <figure class="pie__img">
-      <img src="{{ '/inicial/a05.png' | relative_url }}" alt="">
+  <div class="pie__wrap" style="display:flex;align-items:center;gap:12px;">
+    <figure class="pie__img" style="margin:0;">
+      <img src="{{ '/inicial/a05.png' | relative_url }}" alt="" style="display:block;max-height:48px;">
     </figure>
-    <div class="pie__texto">
-      <p class="pie__line">Profe : Álex Barges</p>
-      <p class="pie__line">profesor y creador</p>
-      <p class="pie__line">Curso Cultura Hispánica</p>
-      <p class="pie__line">v1.35</p>
-      <p class="pie__line">todos los derechos reservados</p>
+
+    <div class="pie__texto" style="display:flex;flex-direction:column;gap:2px;line-height:1.25;">
+      <!-- 1ª linha — Compressed Bold -->
+      <p class="pie__line"
+         style="margin:0;font-family:'TTLakesNeueTrialCompressedBold','Square721 Cn BT',sans-serif;font-weight:700;font-style:normal;letter-spacing:.2px;">
+        Profe : Álex Barges
+      </p>
+
+      <!-- 2ª linha — Square721 Cn Roman (400) -->
+      <p class="pie__line"
+         style="margin:0;font-family:'Square721 Cn BT','TT Lakes Neue',sans-serif;font-weight:400;font-style:normal;">
+        profesor y creador
+      </p>
+
+      <!-- 3ª linha — TT Lakes Neue Regular (400) -->
+      <p class="pie__line"
+         style="margin:0;font-family:'TT Lakes Neue',system-ui,sans-serif;font-weight:400;font-style:normal;">
+        Curso Cultura Hispánica
+      </p>
+
+      <!-- 4ª linha — Zag -->
+      <p class="pie__line"
+         style="margin:0;font-family:'Zag',system-ui,sans-serif;font-weight:400;font-style:normal;">
+        v1.35
+      </p>
+
+      <!-- 5ª linha — TT Lakes Neue Light (300) -->
+      <p class="pie__line"
+         style="margin:0;font-family:'TTLakesNeueTrialLight',Arial,sans-serif;font-weight:300;font-style:normal;">
+        todos los derechos reservados
+      </p>
     </div>
   </div>
 </footer>
