@@ -19,15 +19,21 @@
 
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{min-height:100vh;height:auto}
-body{
-  background-image:url("../../inicial/a00.png");
-  background-repeat:repeat-x;
-  background-position:0 0;
-  background-color:#f7cb44;
-  color:#111;
-  font-family:"TTLakesNeueTrialLight","TTLakesNeueTrialCompressedBold",Arial,sans-serif;
-  display:flex;flex-direction:column;
-}
+body{ color:#000000 !important; }
+a{ color:#ffffff !important; }
+.btn,.btn-primary,button.primary{ background:#4f46e5 !important; color:#fff !important; }
+.card,.panel,.box{ background:#000000 !important; }
+.menu,.navbar,header,.topbar{ background:#000000 !important; }
+.menu,.navbar,header,.topbar a{ color:#000000 !important; }
+.badge,.pill,.tag{ background:#1f2937 !important; }
+.badge,.pill,.tag{ color:#000000 !important; }
+.content,#__scroll_demo::-webkit-scrollbar{ width:12px; height:12px; }
+.content,#__scroll_demo::-webkit-scrollbar-track{ background:#000000 !important; }
+.content,#__scroll_demo::-webkit-scrollbar-thumb{ background:#d799c4 !important; border-radius:999px; }
+.content,#__scroll_demo::-webkit-scrollbar-thumb{ border:3px solid #ffffff !important; }
+html{ scrollbar-width:auto; scrollbar-color:#d799c4 #000000; }
+.content{ max-height:60vh !important; overflow:auto !important; }
+body{ background-color:#8524a8 !important; }
 
 #contenido{flex:1 0 auto;min-height:0;padding-top:var(--header-h);position:relative;z-index:0}
 
