@@ -218,7 +218,7 @@ nav.navbar{
   position: fixed;
   top: 6px;
   left: 150px;   /* espaço do logo */
-  right: 96px;   /* espaço reservado ao bloco "acceder" */
+  right: 90px;   /* espaço reservado ao bloco "acceder" */
   height: 58px;
   display: flex;
   align-items: center;
