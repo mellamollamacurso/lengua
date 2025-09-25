@@ -1,0 +1,77 @@
+
+/* =========================
+   Me Llamo Llama — Font Setup (ajustado aos nomes exatos dos arquivos)
+   Base esperada: /lengua/assets/fonts/
+   ATENÇÃO: Em servidores Linux (GitHub Pages/Cloudflare), o caminho é sensível a MAIÚSCULAS/minúsculas.
+   ========================= */
+
+/* ---------- TT Lakes Neue (Trial) ---------- */
+@font-face{
+  font-family:"TT Lakes Neue";
+  src:url("/lengua/assets/fonts/TT Lakes Neue Trial ExtraLight.woff2") format("woff2");
+  font-weight:200; font-style:normal; font-display:swap;
+}
+@font-face{
+  font-family:"TT Lakes Neue";
+  src:url("/lengua/assets/fonts/TT Lakes Neue Trial Light.woff2") format("woff2");
+  font-weight:300; font-style:normal; font-display:swap;
+}
+@font-face{
+  font-family:"TT Lakes Neue";
+  src:url("/lengua/assets/fonts/TT Lakes Neue Trial Regular.woff2") format("woff2");
+  font-weight:400; font-style:normal; font-display:swap;
+}
+@font-face{
+  font-family:"TT Lakes Neue Compressed";
+  src:url("/lengua/assets/fonts/TT Lakes Neue Trial Compressed Bold.woff2") format("woff2");
+  font-weight:700; font-style:normal; font-display:swap;
+}
+@font-face{
+  font-family:"TT Lakes Neue Condensed";
+  src:url("/lengua/assets/fonts/TT Lakes Neue Trial Condensed Bold Italic.woff2") format("woff2");
+  font-weight:700; font-style:italic; font-display:swap;
+}
+
+/* ---------- Square 721 ---------- */
+@font-face{
+  font-family:"Square721 BT";
+  src:url("/lengua/assets/fonts/Square721 BT Bold.woff2") format("woff2");
+  font-weight:700; font-style:normal; font-display:swap;
+}
+@font-face{
+  font-family:"Square721 Cn BT";
+  src:url("/lengua/assets/fonts/Square721 Cn BT Roman.woff2") format("woff2");
+  font-weight:400; font-style:normal; font-display:swap;
+}
+@font-face{
+  font-family:"Square721 Cn BT";
+  src:url("/lengua/assets/fonts/SQUARE721 CN BT BOLD.woff2") format("woff2");
+  font-weight:700; font-style:normal; font-display:swap;
+}
+@font-face{
+  font-family:"Square721 Cn BT";
+  src:url("/lengua/assets/fonts/SQUARE721 CN BT ITALIC.woff2") format("woff2");
+  font-weight:400; font-style:italic; font-display:swap;
+}
+
+/* ---------- Zag ---------- */
+@font-face{
+  font-family:"Zag";
+  src:url("/lengua/assets/fonts/zag-normal.woff2") format("woff2");
+  font-weight:400; font-style:normal; font-display:swap;
+}
+
+/* ---------- Utilitários seguros (para usar no GENERADOR10 em "Classe p/ exportar") ---------- */
+.font-ttl-200{font-family:'TT Lakes Neue',sans-serif;font-weight:200;font-style:normal;}
+.font-ttl-300{font-family:'TT Lakes Neue',sans-serif;font-weight:300;font-style:normal;}
+.font-ttl-400{font-family:'TT Lakes Neue',sans-serif;font-weight:400;font-style:normal;}
+.font-ttl-700{font-family:'TT Lakes Neue',sans-serif;font-weight:700;font-style:normal;} /* usa Compressed Bold como fallback visual p/ títulos */
+.font-ttl-compressed-700{font-family:'TT Lakes Neue Compressed','TT Lakes Neue',sans-serif;font-weight:700;font-style:normal;}
+.font-ttl-condensed-700-italic{font-family:'TT Lakes Neue Condensed','TT Lakes Neue',sans-serif;font-weight:700;font-style:italic;}
+
+.font-square721-700{font-family:'Square721 BT',sans-serif;font-weight:700;font-style:normal;}
+.font-square721cn-400{font-family:'Square721 Cn BT','Square721 BT',sans-serif;font-weight:400;font-style:normal;}
+.font-square721cn-700{font-family:'Square721 Cn BT','Square721 BT',sans-serif;font-weight:700;font-style:normal;}
+.font-square721cn-400-italic{font-family:'Square721 Cn BT','Square721 BT',sans-serif;font-weight:400;font-style:italic;}
+
+.font-zag{font-family:'Zag',system-ui,sans-serif;font-weight:400;font-style:normal;}
